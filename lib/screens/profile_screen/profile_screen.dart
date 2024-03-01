@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/profile_screen/controller.dart';
 import 'package:nectar/utils/color.dart';
 
@@ -17,7 +18,9 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                 return controller.userData == null
                     ? Center(
                         child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(RouteName.LOGIN_SCREEN);
+                            },
                             child: const Text(
                               "Log In / Sign Up",
                               style: TextStyle(
@@ -38,14 +41,15 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                               height: 50,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(500),
-                                child: controller.userData?.profilePic != null
-                                    ? Image.network(controller
-                                        .userData!.profilePic
-                                        .toString())
-                                    : const Icon(
-                                        Icons.person,
-                                        size: 32.0,
-                                      ),
+                                child:
+                                    controller.userData!.profilePic!.isNotEmpty
+                                        ? Image.network(controller
+                                            .userData!.profilePic
+                                            .toString())
+                                        : const Icon(
+                                            Icons.person,
+                                            size: 32.0,
+                                          ),
                               ),
                             ),
                             const SizedBox(
@@ -111,29 +115,31 @@ class ProfileScreen extends GetView<ProfileScreenController> {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: ListTile(
-                  leading: const Icon(
-                    Icons.logout,
-                    color: AppColors.backgroundColor,
-                  ),
-                  onTap: () {
-                    controller.logOut();
-                  },
-                  title: const Text(
-                    "Log Out",
-                    style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.backgroundColor),
-                    textAlign: TextAlign.center,
-                  ),
-                  tileColor: const Color(0xffF2F3F2),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                ),
-              )
+              controller.userData == null
+                  ? const SizedBox()
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: ListTile(
+                        leading: const Icon(
+                          Icons.logout,
+                          color: AppColors.backgroundColor,
+                        ),
+                        onTap: () {
+                          controller.logOut();
+                        },
+                        title: const Text(
+                          "Log Out",
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.backgroundColor),
+                          textAlign: TextAlign.center,
+                        ),
+                        tileColor: const Color(0xffF2F3F2),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
+                    )
             ],
           ),
         ));

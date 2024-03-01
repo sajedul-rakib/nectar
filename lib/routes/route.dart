@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:nectar/routes/route_name.dart';
+import 'package:nectar/screens/admin/admin_log_in_screen/index.dart';
+import 'package:nectar/screens/admin/admin_screen/index.dart';
 import 'package:nectar/screens/bottom_navigation_bar/index.dart';
 import 'package:nectar/screens/cart_screen/index.dart';
 import 'package:nectar/screens/explore_screen/index.dart';
@@ -90,6 +92,25 @@ class RouteScreen {
     GetPage(
         name: RouteName.RESET_PASSWORD_SCREEN,
         page: () => const ResetPasswordScreen(),
-        binding: ResetPasswordScreenBindings())
+        binding: ResetPasswordScreenBindings()),
+
+    //admin panel
+
+    //admin screen
+    GetPage(
+        name: RouteName.ADMIN_SCREEN,
+        page: () => const AdminScreen(),
+        binding: AdminScreenBindings()),
+
+    //admin log in screen
+    GetPage(
+        name: RouteName.ADMIN_VERIFY_SCREEN,
+        page: () => const AdminVerifyScreen(),
+        binding: AdminLogInScreenBindigs()),
+
+    GetPage(
+        name: RouteName.ADMIN_LOG_IN_SCREEN,
+        page: () => const AdminLogInScreen(),
+        binding: AdminLogInScreenBindigs())
   ];
 }

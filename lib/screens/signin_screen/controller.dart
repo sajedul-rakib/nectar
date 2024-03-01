@@ -63,17 +63,17 @@ class SignInController extends GetxController {
 
       if (haveAnyUserBythisMail.docs.isEmpty) {
         //store user data in firestore
-
         Map<String, dynamic> userInformation = {
           "fullName": user.displayName ?? fullName,
           "email": user.email ?? email,
-          "address": null,
+          "address": "",
           "token": user.uid,
-          "profile_pic": user.photoURL,
-          "phone_number": user.phoneNumber,
-          "cart_list": [],
-          "favourite_list": [],
-          "order": []
+          "profilePic": user.photoURL ?? "",
+          "phoneNumber": user.phoneNumber ?? "",
+          "cartList": [],
+          "favouriteList": [],
+          "order": [],
+          "role": "customer"
         };
         userStore.collection("user").add(userInformation);
 

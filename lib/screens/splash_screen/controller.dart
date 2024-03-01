@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:nectar/routes/route_name.dart';
+import 'package:nectar/share/save_data.dart';
 
 class SplashScreenController extends GetxController {
   Future<void> gotoNextProject() async {
@@ -15,7 +18,15 @@ class SplashScreenController extends GetxController {
     User? authState = await auth.currentUser;
 
     if (authState != null) {
-      Get.offAllNamed(RouteName.BOTTONAVIGATION_SCREEN);
+      String? getRole = await SaveData.getUserRole(role: "role");
+      if (getRole != null) {
+        log("get role $getRole");
+        if (getRole == 'admin') {
+          Get.offAllNamed(RouteName.ADMIN_SCREEN);
+        } else {
+          Get.offAllNamed(RouteName.BOTTONAVIGATION_SCREEN);
+        }
+      }
     } else {
       Get.toNamed(RouteName.LOGIN_SCREEN);
     }
@@ -23,7 +34,6 @@ class SplashScreenController extends GetxController {
 
   @override
   void onInit() {
-    // gotoNextProject();
     checkUserAreLogged();
     super.onInit();
   }

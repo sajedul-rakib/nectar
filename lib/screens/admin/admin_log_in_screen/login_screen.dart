@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nectar/routes/route_name.dart';
-import 'package:nectar/screens/login_screen/controller.dart';
+import 'package:nectar/screens/admin/admin_log_in_screen/index.dart';
 import 'package:nectar/screens/widgets/app_button.dart';
 import 'package:nectar/utils/color.dart';
 
-import '../widgets/text_form_field.dart';
+import '../../widgets/text_form_field.dart';
 
-class LoginScreen extends GetView<LoginScreenController> {
-  const LoginScreen({super.key});
+class AdminLogInScreen extends GetView<AdminLogInScreenController> {
+  const AdminLogInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          "Loging",
+                          "Loging as Admin",
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 25.0,
@@ -76,9 +75,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                           children: [
                             const SizedBox(),
                             TextButton(
-                                onPressed: () {
-                                  controller.gotoResetPasswordScreen();
-                                },
+                                onPressed: () {},
                                 child: const Text(
                                   "Forgot Password?",
                                   style: TextStyle(
@@ -97,81 +94,20 @@ class LoginScreen extends GetView<LoginScreenController> {
                               width: 300,
                               height: 50,
                               child: AppButton(
-                                  title: "Log In",
+                                  title: "Admin Log In",
                                   onPressed: () {
-                                    if (_formKey.currentState?.validate() ??
-                                        true) {
-                                      controller.logIn(
-                                          email: controller
-                                              .emailETController.text
-                                              .trim(),
-                                          password: controller
-                                              .passwordETController.text);
-                                    }
+                                    controller.logIn(
+                                        email: controller.emailETController.text
+                                            .trim(),
+                                        password: controller
+                                            .passwordETController.text);
                                   })),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: SizedBox(
-                              width: 220,
-                              height: 40,
-                              child: AppButton(
-                                  title: "Log in as Admin",
-                                  onPressed: () {
-                                    Get.toNamed(RouteName.ADMIN_VERIFY_SCREEN);
-                                  })),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Don't have an account?",
-                              style: TextStyle(
-                                  fontSize: 16.0, fontWeight: FontWeight.w500),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.toNamed(RouteName.SIGNIN_SCREEN);
-                              },
-                              child: const Text(
-                                "Sign Up",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 18.0,
-                                    color: AppColors.backgroundColor),
-                              ),
-                            )
-                          ],
-                        )
                       ],
                     ),
                   )
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 200,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                    onPressed: () {
-                      Get.offAllNamed(RouteName.BOTTONAVIGATION_SCREEN);
-                    },
-                    child: const Text(
-                      "Later>>",
-                      style: TextStyle(
-                          fontSize: 18.0,
-                          color: AppColors.blackColor,
-                          fontWeight: FontWeight.w600),
-                    ))
-              ],
             ),
           ],
         ),

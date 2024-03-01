@@ -18,7 +18,6 @@ Future<void> main() async {
               messagingSenderId: "452236619238",
               projectId: "ecommerce-8ea16"))
       : await Firebase.initializeApp();
-  await Firebase.initializeApp();
   runApp(const KacaBazar());
 }
 

@@ -8,6 +8,8 @@ class Product {
   String? productPrice;
   String? productStock;
   String? nutrition;
+  String? category;
+  String? brandName;
   double? rating;
 
   Product(
@@ -19,6 +21,8 @@ class Product {
       this.productUnit,
       this.productPrice,
       this.productStock,
+      this.category,
+      this.brandName,
       this.nutrition,
       this.rating});
 
@@ -30,6 +34,8 @@ class Product {
     productImage = json['productImage'].cast<String>();
     productUnit = json['productUnit'];
     productPrice = json['productPrice'];
+    category = json['category'];
+    brandName = json['brandName'];
     productStock = json['productStock'];
     nutrition = json['nutrition'];
     rating = json['rating'];
@@ -44,6 +50,8 @@ class Product {
     data['productImage'] = productImage;
     data['productUnit'] = productUnit;
     data['productPrice'] = productPrice;
+    data['category'] = category;
+    data['brandName'] = brandName;
     data['productStock'] = productStock;
     data['nutrition'] = nutrition;
     data['rating'] = rating;

@@ -11,4 +11,7 @@ class RouteName {
   static const String PROFILE_SCREEN = '/profile-screen';
   static const String FAVOURITE_SCREEN = '/favourite-screen';
   static const String RESET_PASSWORD_SCREEN = '/reset-password-screen';
+  static const String ADMIN_SCREEN = '/admin-screen';
+  static const String ADMIN_VERIFY_SCREEN = '/admin-log-in-screen';
+  static const String ADMIN_LOG_IN_SCREEN = '/admin-log-in';
 }
