@@ -1,5 +1,4 @@
 class Product {
-  String? id;
   String? productName;
   String? productDescription;
   String? productShowImage;
@@ -13,8 +12,7 @@ class Product {
   double? rating;
 
   Product(
-      {this.id,
-      this.productName,
+      {this.productName,
       this.productDescription,
       this.productShowImage,
       this.productImage,
@@ -27,7 +25,6 @@ class Product {
       this.rating});
 
   Product.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     productName = json['productName'];
     productDescription = json['productDescription'];
     productShowImage = json['productShowImage'];
@@ -43,7 +40,7 @@ class Product {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
+
     data['productName'] = productName;
     data['productDescription'] = productDescription;
     data['productShowImage'] = productShowImage;

@@ -6,7 +6,9 @@ class InputFormField extends StatelessWidget {
   const InputFormField({
     super.key,
     required this.label,
-    this.controller, this.suffixIcon,  this.validation,
+    this.controller,
+    this.suffixIcon,
+    this.validation,
   });
 
   final String label;
@@ -18,23 +20,22 @@ class InputFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      validator: (String? value){
-        if(validation!=null){
-         return validation!(value);
-        }else {
+      validator: (String? value) {
+        if (validation != null) {
+          return validation!(value);
+        } else {
           return null;
         }
       },
       decoration: InputDecoration(
-        suffixIcon:Icon(suffixIcon),
+          suffixIcon: Icon(suffixIcon),
           label: Text(
-        label,
-        style: const TextStyle(
-            fontFamily: 'montserrat',
-            fontSize: 16.0,
-            fontWeight: FontWeight.w700,
-            color: AppColors.shadowTextColor),
-      )),
+            label,
+            style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w700,
+                color: AppColors.shadowTextColor),
+          )),
     );
   }
 }

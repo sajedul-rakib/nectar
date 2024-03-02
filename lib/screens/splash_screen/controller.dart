@@ -22,7 +22,7 @@ class SplashScreenController extends GetxController {
       if (getRole != null) {
         log("get role $getRole");
         if (getRole == 'admin') {
-          Get.offAllNamed(RouteName.ADMIN_SCREEN);
+          Get.offAllNamed(RouteName.ADMIN_BOTTOM_NAV_BARSCREEN);
         } else {
           Get.offAllNamed(RouteName.BOTTONAVIGATION_SCREEN);
         }

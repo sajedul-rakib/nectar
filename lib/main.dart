@@ -16,7 +16,8 @@ Future<void> main() async {
               apiKey: "AIzaSyCNXajb8R2tByCB0GACd7_5kXIL-BnFgd4",
               appId: "1:452236619238:android:004248f0a004ad8b1e3a27",
               messagingSenderId: "452236619238",
-              projectId: "ecommerce-8ea16"))
+              projectId: "ecommerce-8ea16",
+              storageBucket: "ecommerce-8ea16.appspot.com"))
       : await Firebase.initializeApp();
   runApp(const KacaBazar());
 }

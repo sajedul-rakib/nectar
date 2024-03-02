@@ -14,4 +14,9 @@ class RouteName {
   static const String ADMIN_SCREEN = '/admin-screen';
   static const String ADMIN_VERIFY_SCREEN = '/admin-log-in-screen';
   static const String ADMIN_LOG_IN_SCREEN = '/admin-log-in';
+  static const String ADMIN_BOTTOM_NAV_BARSCREEN =
+      '/admin-bottom-nav-bar-screen';
+  static const String ADMIN_PROFILE_SCREEN = '/admin-profile-screen';
+  static const String PRODUCT_LIST_SCREEN = '/product-list-screen';
+  static const String ORDER_LIST = '/order-list-screen';
 }
