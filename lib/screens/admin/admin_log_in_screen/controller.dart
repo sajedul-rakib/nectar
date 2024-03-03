@@ -82,14 +82,33 @@ class AdminLogInScreenController extends GetxController {
   }
 
   Future<void> logIn({required String email, required String password}) async {
-    User? user = await signInAdmin(email: email, password: password);
-    if (user != null) {
-      SaveData.saveUserRole(role: "admin");
-      snackBar(
-          title: "Log in Successful",
-          message: "Admin log in successfully",
-          contentType: 'success');
-      Get.offAllNamed(RouteName.ADMIN_BOTTOM_NAV_BARSCREEN);
+    bool getValidAdmin = await _firestore
+        .collection("admins")
+        .where("email", isEqualTo: email)
+        .limit(1)
+        .get()
+        .then((value) {
+      if (value.docs.first.data()['email'] == email) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    if (getValidAdmin) {
+      User? user = await signInAdmin(email: email, password: password);
+      if (user != null) {
+        SaveData.saveUserRole(role: "admin");
+        snackBar(
+            title: "Log in Successful",
+            message: "Admin log in successfully",
+            contentType: 'success');
+        Get.offAllNamed(RouteName.ADMIN_BOTTOM_NAV_BARSCREEN);
+      } else {
+        snackBar(
+            title: "Invalid admin",
+            message: "You are not valid admin.Contact with nectar team",
+            contentType: 'fail');
+      }
     }
   }
 }

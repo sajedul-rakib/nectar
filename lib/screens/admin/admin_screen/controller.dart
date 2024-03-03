@@ -84,17 +84,23 @@ class AdminScreenController extends GetxController {
 
   //upload product image in firebase firesotre
 
-  void uploadImages() async {
+  Future<bool> uploadImages() async {
+    var uploadTask;
     for (var imgFile in _images) {
       final path = 'productImages/${imgFile.name}';
       final file = File(imgFile.path);
       final ref = FirebaseStorage.instance.ref().child(path);
-      final uploadTask = ref.putFile(file);
+      uploadTask = ref.putFile(file);
 
       final snapshot = await uploadTask.whenComplete(() => null);
 
       final urlDownload = await snapshot.ref.getDownloadURL();
       _imageAddress.add(urlDownload);
+    }
+    if (uploadTask.snapshot == TaskState.success) {
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -120,17 +126,15 @@ class AdminScreenController extends GetxController {
       rating: 0.0,
     );
     await _firestore.collection('products').add(product.toJson());
-
+    _imageAddress.clear();
+    _images.clear();
+    _category = null;
+    _unitName = null;
     _productNameETController.clear();
     _productDetailETController.clear();
     _productQuantityETController.clear();
     _productPriceETController.clear();
     _productNutritionETController.clear();
-
-    _imageAddress.clear();
-    _images.clear();
-    _category = null;
-    _unitName = null;
     update();
   }
 }

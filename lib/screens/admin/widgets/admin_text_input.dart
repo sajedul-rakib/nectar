@@ -7,16 +7,25 @@ class AdminTextInput extends StatelessWidget {
       required this.label,
       this.maxLine = 1,
       this.prefixWidget,
-      this.controller});
+      this.controller,
+      this.validation});
 
   final String label;
   final int maxLine;
   final Widget? prefixWidget;
   final TextEditingController? controller;
+  final Function(String? value)? validation;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (value) {
+        if (validation != null) {
+          return validation!(value);
+        } else {
+          return null;
+        }
+      },
       controller: controller,
       maxLines: maxLine,
       decoration: InputDecoration(

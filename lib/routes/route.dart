@@ -111,7 +111,7 @@ class RouteScreen {
     //admin screen
     GetPage(
         name: RouteName.ADMIN_SCREEN,
-        page: () => const AdminScreen(),
+        page: () => AdminScreen(),
         binding: AdminScreenBindings()),
 
     //admin verify screen

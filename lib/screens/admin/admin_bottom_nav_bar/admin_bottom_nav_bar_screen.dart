@@ -15,7 +15,7 @@ class AdminBottomNavBarScreen extends GetView<AdminBottomNavBarController> {
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
-      const AdminScreen(),
+      AdminScreen(),
       const ProductListScreen(),
       const OrderListScreen(),
       const AdminProfileScreen(),
