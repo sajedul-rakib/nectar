@@ -152,8 +152,8 @@ class AdminScreen extends GetView<AdminScreenController> {
                           hint: const Text("Select Category"),
                           items: const [
                             DropdownMenuItem(
-                              value: "Fresh Fruit & Vegetable",
-                              child: Text("Fresh Fruit & Vegetable"),
+                              value: "Fresh Fruits & Vegetable",
+                              child: Text("Fresh Fruits & Vegetable"),
                             ),
                             DropdownMenuItem(
                               value: "Cooking Oil & Ghee",

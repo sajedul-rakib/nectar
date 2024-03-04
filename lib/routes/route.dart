@@ -17,6 +17,7 @@ import 'package:nectar/screens/login_screen/index.dart';
 import 'package:nectar/screens/product_detail_screen//index.dart';
 import 'package:nectar/screens/profile_screen/index.dart';
 import 'package:nectar/screens/reset_password_screen/index.dart';
+import 'package:nectar/screens/search_with_category_screen/index.dart';
 import 'package:nectar/screens/signin_screen/index.dart';
 import 'package:nectar/screens/splash_screen/index.dart';
 
@@ -99,6 +100,12 @@ class RouteScreen {
         name: RouteName.RESET_PASSWORD_SCREEN,
         page: () => const ResetPasswordScreen(),
         binding: ResetPasswordScreenBindings()),
+
+    //category search screen  screen
+    GetPage(
+        name: RouteName.CATEGORY_SEARCH_SCREEN,
+        page: () => const CategorySearchScreen(),
+        binding: CategorySearchScreenBindings()),
 
     //admin panel
 

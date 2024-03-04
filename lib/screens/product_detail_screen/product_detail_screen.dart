@@ -109,7 +109,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                                   minusMethod: controller.minusMethod,
                                 )),
                         Text(
-                          controller.product.productPrice ?? "",
+                          "\$${controller.product.productPrice ?? "0"}",
                           style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 30.0,
@@ -170,7 +170,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                           children: [
                             Chip(
                               label: Text(
-                                controller.product.nutrition ?? "",
+                                "\$${controller.product.nutrition ?? "0"} gm",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.shadowTextColor,

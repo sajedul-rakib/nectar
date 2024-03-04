@@ -85,12 +85,12 @@ class AdminScreenController extends GetxController {
   //upload product image in firebase firesotre
 
   Future<bool> uploadImages() async {
+    final ref = FirebaseStorage.instance.ref('product/productImages');
     var uploadTask;
     for (var imgFile in _images) {
-      final path = 'productImages/${imgFile.name}';
       final file = File(imgFile.path);
-      final ref = FirebaseStorage.instance.ref().child(path);
-      uploadTask = ref.putFile(file);
+      final store = ref.child(imgFile.name);
+      uploadTask = store.putFile(file);
 
       final snapshot = await uploadTask.whenComplete(() => null);
 
@@ -111,30 +111,31 @@ class AdminScreenController extends GetxController {
     required String productPrice,
     required String nutrition,
   }) async {
-    uploadImages();
-    Product product = Product(
-      productName: productName,
-      productDescription: productDetails,
-      productImage: _imageAddress,
-      productPrice: productPrice,
-      productShowImage: _imageAddress.first,
-      productStock: productQuantiy,
-      productUnit: _unitName,
-      category: _category,
-      nutrition: nutrition,
-      brandName: null,
-      rating: 0.0,
-    );
-    await _firestore.collection('products').add(product.toJson());
-    _imageAddress.clear();
-    _images.clear();
-    _category = null;
-    _unitName = null;
-    _productNameETController.clear();
-    _productDetailETController.clear();
-    _productQuantityETController.clear();
-    _productPriceETController.clear();
-    _productNutritionETController.clear();
-    update();
+    await uploadImages().then((value) async {
+      Product product = Product(
+        productName: productName,
+        productDescription: productDetails,
+        productImage: _imageAddress,
+        productPrice: productPrice,
+        productShowImage: _imageAddress.first,
+        productStock: productQuantiy,
+        productUnit: _unitName,
+        category: _category?.split(" ").join(''),
+        nutrition: nutrition,
+        brandName: null,
+        rating: 0.0,
+      );
+      await _firestore.collection('products').add(product.toJson());
+      _imageAddress.clear();
+      _images.clear();
+      _category = null;
+      _unitName = null;
+      _productNameETController.clear();
+      _productDetailETController.clear();
+      _productQuantityETController.clear();
+      _productPriceETController.clear();
+      _productNutritionETController.clear();
+      update();
+    });
   }
 }

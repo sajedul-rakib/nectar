@@ -28,10 +28,10 @@ class ProductSlider extends StatelessWidget {
                 child: Column(
                   children: [
                     Center(
-                      child: Image.asset(
+                      child: Image.network(
                         data.toString(),
                         fit: BoxFit.cover,
-                        width: 300,
+                        width: 200,
                       ),
                     ),
                     // Container(
