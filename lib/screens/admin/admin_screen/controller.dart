@@ -18,8 +18,10 @@ class AdminScreenController extends GetxController {
   //firebase storage
   String? _unitName;
   String? _category;
+  String? _tagName;
   final ImagePicker _imagePicker = ImagePicker();
   final List<XFile> _images = [];
+  XFile? _slideImage;
   final List<String> _imageAddress = [];
 
   //text editing controoler
@@ -37,7 +39,9 @@ class AdminScreenController extends GetxController {
   //get
   String? get unitName => _unitName;
   List<XFile> get productImages => _images;
+  XFile? get slideImages => _slideImage;
   String? get category => _category;
+  String? get tagName => _tagName;
 
   TextEditingController get productNameETController => _productNameETController;
   TextEditingController get productDetailETController =>
@@ -51,6 +55,11 @@ class AdminScreenController extends GetxController {
 
   void changeUnit(String unit) {
     _unitName = unit;
+    update();
+  }
+
+  void changeTag(String tag) {
+    _tagName = tag;
     update();
   }
 
@@ -82,8 +91,20 @@ class AdminScreenController extends GetxController {
     }
   }
 
-  //upload product image in firebase firesotre
+  //pick slide image
+  void pickSlideImage() async {
+    _slideImage = await _imagePicker.pickImage(source: ImageSource.gallery);
 
+    if (_slideImage != null) {
+      _slideImage = _slideImage;
+      update();
+    }
+  }
+
+  //upload slider/banner
+  Future<void> uploadSlider() async {}
+
+  //upload product image in firebase firesotre
   Future<bool> uploadImages() async {
     final ref = FirebaseStorage.instance.ref('product/productImages');
     var uploadTask;
@@ -121,6 +142,7 @@ class AdminScreenController extends GetxController {
         productStock: productQuantiy,
         productUnit: _unitName,
         category: _category?.split(" ").join(''),
+        tag: _tagName?.split(" ").join(''),
         nutrition: nutrition,
         brandName: null,
         rating: 0.0,
@@ -130,6 +152,7 @@ class AdminScreenController extends GetxController {
       _images.clear();
       _category = null;
       _unitName = null;
+      _tagName = null;
       _productNameETController.clear();
       _productDetailETController.clear();
       _productQuantityETController.clear();

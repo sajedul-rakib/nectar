@@ -121,6 +121,18 @@ class RouteScreen {
         page: () => AdminScreen(),
         binding: AdminScreenBindings()),
 
+    //add product screen
+    GetPage(
+        name: RouteName.ADD_PRODUCT_SCREEN,
+        page: () => AddProductScreen(),
+        binding: AdminScreenBindings()),
+
+    //add slider screen
+    GetPage(
+        name: RouteName.ADD_SLIDER_SCREEN,
+        page: () => const AddSliderScreen(),
+        binding: AdminScreenBindings()),
+
     //admin verify screen
     GetPage(
         name: RouteName.ADMIN_VERIFY_SCREEN,

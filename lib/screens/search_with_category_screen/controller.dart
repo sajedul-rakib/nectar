@@ -17,7 +17,6 @@ class CategorySearchScreenController extends GetxController {
   Future<void> getProductDataByCategory(String category) async {
     _pageLoader = true;
     update();
-    log('category ${category.split(" ").join('')}');
     FirebaseFirestore store = FirebaseFirestore.instance;
     try {
       await store

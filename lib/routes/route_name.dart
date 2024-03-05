@@ -15,6 +15,8 @@ class RouteName {
 
   //admin
   static const String ADMIN_SCREEN = '/admin-screen';
+  static const String ADD_PRODUCT_SCREEN = '/add-product-screen';
+  static const String ADD_SLIDER_SCREEN = '/add-slider-screen';
   static const String ADMIN_VERIFY_SCREEN = '/admin-log-in-screen';
   static const String ADMIN_LOG_IN_SCREEN = '/admin-log-in';
   static const String ADMIN_BOTTOM_NAV_BARSCREEN =

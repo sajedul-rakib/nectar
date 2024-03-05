@@ -8,6 +8,7 @@ class Product {
   String? productStock;
   String? nutrition;
   String? category;
+  String? tag;
   String? brandName;
   double? rating;
 
@@ -22,6 +23,7 @@ class Product {
       this.category,
       this.brandName,
       this.nutrition,
+      this.tag,
       this.rating});
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class Product {
     productUnit = json['productUnit'];
     productPrice = json['productPrice'];
     category = json['category'];
+    tag = json['tag'];
     brandName = json['brandName'];
     productStock = json['productStock'];
     nutrition = json['nutrition'];
@@ -48,6 +51,7 @@ class Product {
     data['productUnit'] = productUnit;
     data['productPrice'] = productPrice;
     data['category'] = category;
+    data['tag'] = tag;
     data['brandName'] = brandName;
     data['productStock'] = productStock;
     data['nutrition'] = nutrition;

@@ -68,7 +68,8 @@ class AdminLogInScreen extends GetView<AdminLogInScreenController> {
                               return null;
                             }
                           },
-                          suffixIcon: CupertinoIcons.eye_slash,
+                          suffixIcon1: CupertinoIcons.eye_slash,
+                          suffixIcon2: CupertinoIcons.eye,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

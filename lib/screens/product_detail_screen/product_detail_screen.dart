@@ -62,6 +62,9 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -98,6 +101,9 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                               weight: 10,
                             ))
                       ],
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

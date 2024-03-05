@@ -69,7 +69,8 @@ class LoginScreen extends GetView<LoginScreenController> {
                               return null;
                             }
                           },
-                          suffixIcon: CupertinoIcons.eye_slash,
+                          suffixIcon1: CupertinoIcons.eye_slash_fill,
+                          suffixIcon2: CupertinoIcons.eye,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

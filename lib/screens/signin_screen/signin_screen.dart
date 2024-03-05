@@ -72,8 +72,9 @@ class SigninScreen extends GetView<SignInController> {
                         ),
                         InputFormField(
                           label: 'Password',
-                          suffixIcon: CupertinoIcons.eye_slash,
                           controller: controller.passwordETController,
+                          suffixIcon1: CupertinoIcons.eye_slash,
+                          suffixIcon2: CupertinoIcons.eye,
                           validation: (String? value) {
                             if (value!.isEmpty) {
                               return "Enter a strong password";
