@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class CategoryDataModel {
   Color? backgroundColor;
@@ -6,9 +6,10 @@ class CategoryDataModel {
   String? picAddress;
   String? categoryTitle;
 
-  CategoryDataModel(
-      {this.backgroundColor,
-      this.borderColor,
-      this.picAddress,
-      this.categoryTitle});
+  CategoryDataModel({
+    this.backgroundColor,
+    this.borderColor,
+    this.picAddress,
+    this.categoryTitle,
+  });
 }

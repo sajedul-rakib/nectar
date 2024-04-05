@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,14 @@ import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/widgets/snack_bar.dart';
 
 class SignInController extends GetxController {
+  //essentials
+  final Rx<bool> _showPassword = true.obs;
+
+  void isShowPassword() {
+    _showPassword.value = !_showPassword.value;
+    update();
+  }
+
   //Text Editing Controller
   final TextEditingController _fullNameETController = TextEditingController();
   final TextEditingController _emailETController = TextEditingController();
@@ -16,6 +25,8 @@ class SignInController extends GetxController {
   TextEditingController get fullNameETController => _fullNameETController;
   TextEditingController get emailETController => _emailETController;
   TextEditingController get passwordETController => _passwordETController;
+
+  bool get showPassword => _showPassword.value;
 
   FirebaseAuth fireStore = FirebaseAuth.instance;
 
@@ -32,19 +43,22 @@ class SignInController extends GetxController {
         snackBar(
             title: 'Warning',
             message: e.message.toString(),
-            contentType: 'warning');
+            contentType: ContentType.warning,
+            context: Get.key.currentContext!);
       } else if (e.code == 'email-already-in-use') {
         snackBar(
             title: 'Warning',
             message: e.message.toString(),
-            contentType: 'warning');
+            contentType: ContentType.warning,
+            context: Get.key.currentContext!);
       }
       return null;
     } catch (e) {
       snackBar(
           title: 'Failed',
           message: 'You failed to create account.Try again.',
-          contentType: 'warning');
+          contentType: ContentType.warning,
+          context: Get.key.currentContext!);
       return null;
     }
   }
@@ -63,17 +77,17 @@ class SignInController extends GetxController {
 
       if (haveAnyUserBythisMail.docs.isEmpty) {
         //store user data in firestore
-
         Map<String, dynamic> userInformation = {
           "fullName": user.displayName ?? fullName,
           "email": user.email ?? email,
-          "address": null,
+          "address": "",
           "token": user.uid,
-          "profile_pic": user.photoURL,
-          "phone_number": user.phoneNumber,
-          "cart_list": [],
-          "favourite_list": [],
-          "order": []
+          "profilePic": user.photoURL ?? "",
+          "phoneNumber": user.phoneNumber ?? "",
+          "cartList": [],
+          "favouriteList": [],
+          "order": [],
+          "role": "customer"
         };
         userStore.collection("user").add(userInformation);
 
@@ -82,7 +96,8 @@ class SignInController extends GetxController {
             title: "Sign in Successfully",
             message:
                 "Your account created successfully.Thank you for join with us",
-            contentType: 'success');
+            contentType: ContentType.success,
+            context: Get.key.currentContext!);
 
         //clear input data
         _emailETController.clear();

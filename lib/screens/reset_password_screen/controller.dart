@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,8 @@ class ResetPasswordScreenController extends GetxController {
     snackBar(
         title: "Reset Password",
         message: "We send a mail at $email.Check the email for reset passwrod",
-        contentType: 'success');
+        contentType: ContentType.success,
+        context: Get.key.currentContext!);
     Get.offAllNamed(RouteName.LOGIN_SCREEN);
   }
 

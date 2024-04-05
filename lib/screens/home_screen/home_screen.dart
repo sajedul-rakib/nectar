@@ -44,12 +44,14 @@ class HomeScreen extends GetView<HomeScreenController> {
               height: 10,
             ),
             GetBuilder<HomeScreenController>(builder: (controller) {
-              return ProductSlider(
-                carouselData: controller.carousel_data,
-                currentBannerIndex: controller.currentBanner,
-                changeIndex: controller.changeBanner,
-                autoPlay: true,
-              );
+              return controller.sliderDataLoader
+                  ? const Center(
+                      child:  CircularProgressIndicator(),
+                    )
+                  : ProductSlider(
+                      carouselData: controller.carousel_data,
+                      autoPlay: true,
+                    );
             }),
             Column(
               children: [
@@ -78,23 +80,34 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 300,
-                  width: double.infinity,
-                  child:
-                      GetBuilder<HomeScreenController>(builder: (controller) {
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: controller.productData.length,
-                        itemBuilder: (context, index) {
-                          return ProductCart(
-                            product: controller.productData[index],
-                          );
-                        });
-                  }),
-                )
+                GetBuilder<HomeScreenController>(builder: (controller) {
+                  return controller.exclusiveOfferDataLoader
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.backgroundColor,
+                            strokeWidth: 2.0,
+                          ),
+                        )
+                      : SizedBox(
+                          height: 300,
+                          width: double.infinity,
+                          child: GetBuilder<HomeScreenController>(
+                              builder: (controller) {
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount:
+                                    controller.exclusiveOfferProduct.length,
+                                itemBuilder: (context, index) {
+                                  return ProductCart(
+                                    product:
+                                        controller.exclusiveOfferProduct[index],
+                                  );
+                                });
+                          }),
+                        );
+                })
               ],
             ),
             Column(
@@ -124,23 +137,33 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 300,
-                  width: double.infinity,
-                  child:
-                      GetBuilder<HomeScreenController>(builder: (controller) {
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: controller.productData.length,
-                        itemBuilder: (context, index) {
-                          return ProductCart(
-                            product: controller.productData[index],
-                          );
-                        });
-                  }),
-                )
+                GetBuilder<HomeScreenController>(builder: (controller) {
+                  return controller.bestSellingDataLoader
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.backgroundColor,
+                            strokeWidth: 2.0,
+                          ),
+                        )
+                      : SizedBox(
+                          height: 300,
+                          width: double.infinity,
+                          child: GetBuilder<HomeScreenController>(
+                              builder: (controller) {
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: controller.bestSellingProduct.length,
+                                itemBuilder: (context, index) {
+                                  return ProductCart(
+                                    product:
+                                        controller.bestSellingProduct[index],
+                                  );
+                                });
+                          }),
+                        );
+                })
               ],
             ),
             Column(
@@ -171,23 +194,32 @@ class HomeScreen extends GetView<HomeScreenController> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 300,
-                  width: double.infinity,
-                  child:
-                      GetBuilder<HomeScreenController>(builder: (controller) {
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: controller.productData.length,
-                        itemBuilder: (context, index) {
-                          return ProductCart(
-                            product: controller.productData[index],
-                          );
-                        });
-                  }),
-                )
+                GetBuilder<HomeScreenController>(builder: (controller) {
+                  return controller.groceriesDataLoader
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.backgroundColor,
+                            strokeAlign: 2.0,
+                          ),
+                        )
+                      : SizedBox(
+                          height: 300,
+                          width: double.infinity,
+                          child: GetBuilder<HomeScreenController>(
+                              builder: (controller) {
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: controller.groceriesProduct.length,
+                                itemBuilder: (context, index) {
+                                  return ProductCart(
+                                    product: controller.groceriesProduct[index],
+                                  );
+                                });
+                          }),
+                        );
+                })
               ],
             ),
             const SizedBox(

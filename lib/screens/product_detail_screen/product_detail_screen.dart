@@ -6,7 +6,6 @@ import 'package:nectar/screens/product_detail_screen/controller.dart';
 import 'package:nectar/screens/widgets/app_button.dart';
 import 'package:nectar/screens/widgets/rating_bar.dart';
 import 'package:nectar/screens/widgets/slider.dart';
-import 'package:nectar/screens/widgets/snack_bar.dart';
 import 'package:nectar/screens/widgets/stepper.dart';
 import 'package:nectar/utils/color.dart';
 
@@ -45,9 +44,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                       )),
                   Center(
                     child: ProductSlider(
-                      carouselData: controller.product.productImage,
-                      currentBannerIndex: controller.productSliderBannerIndex,
-                      changeIndex: controller.changeIndex,
+                      carouselData: controller.product.productImage!,
                     ),
                   ),
                 ],
@@ -55,13 +52,16 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
             ),
           ),
           Expanded(
-            flex: 4,
+            flex: 5,
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -99,6 +99,9 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                             ))
                       ],
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -109,7 +112,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                                   minusMethod: controller.minusMethod,
                                 )),
                         Text(
-                          controller.product.productPrice ?? "",
+                          "\$${controller.product.productPrice ?? "0"}",
                           style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 30.0,
@@ -118,7 +121,21 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                       ],
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
+                    ),
+                    controller.product.productStock! < 5
+                        ? Center(
+                            child: Text(
+                              "This product are limited,this product only have ${controller.product.productStock} ${controller.product.productUnit}",
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18.0,
+                                  color: Colors.red),
+                            ),
+                          )
+                        : const Center(),
+                    const SizedBox(
+                      height: 10,
                     ),
                     const Divider(),
                     Column(
@@ -170,7 +187,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                           children: [
                             Chip(
                               label: Text(
-                                controller.product.nutrition ?? "",
+                                "\$${controller.product.nutrition ?? "0"} gm",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.shadowTextColor,
@@ -223,12 +240,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                             height: 60,
                             child: AppButton(
                               title: "Add To Basket",
-                              onPressed: () {
-                                snackBar(
-                                    title: "Warning",
-                                    message: "This is warning for you",
-                                    contentType: 'fail');
-                              },
+                              onPressed: () {},
                             ))),
                     const SizedBox(
                       height: 20,

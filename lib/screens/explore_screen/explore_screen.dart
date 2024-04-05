@@ -26,8 +26,14 @@ class ExploreScreen extends GetView<ExploreScreenController> {
                 itemCount: controller.categoryData.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: .8, crossAxisCount: 2),
-                itemBuilder: (context, index) => CategoryCart(
-                    categoryDataModel: controller.categoryData[index]))),
+                itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        controller.gotoSearchScreen(
+                            controller.categoryData[index].categoryTitle!);
+                      },
+                      child: CategoryCart(
+                          categoryDataModel: controller.categoryData[index]),
+                    ))),
       ),
     );
   }
@@ -43,42 +49,39 @@ class CategoryCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: 220,
-        width: 220,
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: categoryDataModel.backgroundColor,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-                width: 1,
-                color: categoryDataModel.borderColor ?? AppColors.shadowColor)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Image.asset(
-                "${categoryDataModel.picAddress}",
-                width: 180,
-                fit: BoxFit.contain,
-              ),
+    return Container(
+      height: 220,
+      width: 220,
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          color: categoryDataModel.backgroundColor,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+              width: 1,
+              color: categoryDataModel.borderColor ?? AppColors.shadowColor)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset(
+              "${categoryDataModel.picAddress}",
+              width: 180,
+              fit: BoxFit.contain,
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              categoryDataModel.categoryTitle ?? "",
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.blackColor,
-                  fontSize: 18.0),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            categoryDataModel.categoryTitle ?? "",
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: AppColors.blackColor,
+                fontSize: 18.0),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

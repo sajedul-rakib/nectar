@@ -34,7 +34,7 @@ class ProductCart extends StatelessWidget {
           children: [
             Expanded(
                 flex: 1,
-                child: Image.asset(
+                child: Image.network(
                   "${product.productShowImage}",
                   width: 200,
                   fit: BoxFit.contain,
@@ -87,7 +87,7 @@ class ProductCart extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "${product.productPrice}",
+                            "\$${product.productPrice}",
                             style: const TextStyle(
                                 fontSize: 22.0,
                                 color: AppColors.blackColor,
