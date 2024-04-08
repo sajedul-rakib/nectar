@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/utils/color.dart';
+import 'package:nectar/utils/responsive.dart';
 
 import '../widgets/app_button.dart';
 
@@ -14,12 +15,18 @@ class OnbordingScreen extends StatelessWidget {
       body: SafeArea(
           child: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                "assets/images/introduce_image.png",
-              )),
+        decoration: BoxDecoration(
+          image: !Responsive.isMobile(context)
+              ? const DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    "assets/images/introduce_image.png",
+                  ))
+              : const DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(
+                    "assets/images/introduce_image.png",
+                  )),
         ),
         child: Center(
           child: Column(

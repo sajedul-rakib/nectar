@@ -1,4 +1,3 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -39,9 +38,9 @@ class LoginScreenController extends GetxController {
         //snackbar
         snackBar(
             title: "Not Found",
+            contentType: ContentType.failure,
             message:
                 "Not user found for that email.Enter your correct email address or sign in first",
-            contentType: ContentType.failure,
             context: Get.key.currentContext!);
         // return null;
       } else if (e.code == 'wrong-password') {
@@ -49,8 +48,8 @@ class LoginScreenController extends GetxController {
 
         snackBar(
             title: "Wrong Password",
-            message: "Wrong password provided for that user",
             contentType: ContentType.failure,
+            message: "Wrong password provided for that user",
             context: Get.key.currentContext!);
         // return null;
       }
@@ -58,9 +57,9 @@ class LoginScreenController extends GetxController {
     } catch (e) {
       //snackbar
       snackBar(
+          contentType: ContentType.failure,
           title: "Failed to log In",
           message: "Failed to log in.Create new account",
-          contentType: ContentType.failure,
           context: Get.key.currentContext!);
       return null;
     }
@@ -74,9 +73,9 @@ class LoginScreenController extends GetxController {
       SaveData.saveUserRole(role: "customer");
       SaveData.setBoolFirstOpenThisApp(false);
       snackBar(
+          contentType: ContentType.success,
           title: "Log in successfully",
           message: "You are successfully to log in your account",
-          contentType: ContentType.success,
           context: Get.key.currentContext!);
       _emailETController.clear();
       _passwordETController.clear();

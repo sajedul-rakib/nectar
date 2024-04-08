@@ -21,7 +21,7 @@ class HomeScreenController extends GetxController {
   List<Product> get groceriesProduct => _groceriesProduct;
   List<Product> get exclusiveOfferProduct => _exclusiveOfferProduct;
   List<Product> get bestSellingProduct => _bestSellingProduct;
-  List<String> get carousel_data => _carouselData;
+  List<String> get carouselData => _carouselData;
   bool get groceriesDataLoader => _groceriesDataLoader;
   bool get exclusiveOfferDataLoader => _exclusiveOfferDataLoader;
   bool get bestSellingDataLoader => _bestSellingDataLoader;

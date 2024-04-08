@@ -1,4 +1,3 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -63,8 +62,8 @@ class ProfileScreenController extends GetxController {
     await _auth.signOut();
     snackBar(
         title: "Log Out",
-        message: "Log out successfully",
         contentType: ContentType.success,
+        message: "Log out successfully",
         context: Get.key.currentContext!);
     Get.offAllNamed(RouteName.LOGIN_SCREEN);
   }

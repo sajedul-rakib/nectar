@@ -15,6 +15,7 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         title: const Text(
           "Favourite",
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -24,80 +25,115 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
         backgroundColor: Colors.transparent,
       ),
       body: controller.checkUserAreLogged
-          ? Column(
-              children: [
-                const Divider(),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          ClipRRect(
-                            child: Image.asset(
-                              'assets/images/apple.png',
-                              width: 100,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 180,
-                                      child: AutoSizeText(
-                                        "Natural Red Apple Natural Red Apple  Natural Red Apple ",
-                                        style: TextStyle(
-                                          color: AppColors.blackColor,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxFontSize: 18.0,
-                                        minFontSize: 14.0,
+          ? GetBuilder<FavouriteScreenController>(builder: (controller) {
+              return controller.favouriteProduct.isEmpty
+                  ? const Center(
+                      child: Text("You have no favourite product"),
+                    )
+                  : RefreshIndicator(
+                      onRefresh: () {
+                        controller.favouriteProduct.clear();
+                        controller.update();
+                        return controller.getFavouriteProduct();
+                      },
+                      child: Obx(() => controller.pageLoader
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.backgroundColor,
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: controller.favouriteProduct.length,
+                              itemBuilder: (_, index) {
+                                return Card(
+                                  margin: const EdgeInsets.all(8.0),
+                                  color: AppColors.shadowColor,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Card(
+                                            elevation: 0.0,
+                                            color: AppColors.whiteColor,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Image.network(
+                                                '${controller.favouriteProduct[index].productShowImage}',
+                                                width: 100,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 100,
+                                                      child: AutoSizeText(
+                                                        "${controller.favouriteProduct[index].productName}",
+                                                        style: const TextStyle(
+                                                          color: AppColors
+                                                              .blackColor,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                        maxLines: 2,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxFontSize: 18.0,
+                                                        minFontSize: 14.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "${controller.favouriteProduct[index].productUnit},Price",
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: AppColors
+                                                              .shadowTextColor,
+                                                          fontSize: 16.0),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    Text(
-                                      "4,Price",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.shadowTextColor,
-                                          fontSize: 16.0),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Row(
-                        children: [
-                          Text(
-                            "\$12",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0,
-                                color: AppColors.blackColor),
-                          ),
-                          Icon(CupertinoIcons.chevron_right)
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider()
-              ],
-            )
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "\$${controller.favouriteProduct[index].productPrice}",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.0,
+                                                color: AppColors.blackColor),
+                                          ),
+                                          const Icon(
+                                              CupertinoIcons.chevron_right)
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              })),
+                    );
+            })
           : Center(
               child: SizedBox(
                 width: 250,

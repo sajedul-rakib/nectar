@@ -36,7 +36,6 @@ class ProductCart extends StatelessWidget {
                 flex: 1,
                 child: Image.network(
                   "${product.productShowImage}",
-                  width: 200,
                   fit: BoxFit.contain,
                 )),
             const SizedBox(
@@ -53,6 +52,7 @@ class ProductCart extends StatelessWidget {
                         "${product.productName}",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
                           color: AppColors.backgroundColor,
                         ),
                         maxLines: 2,

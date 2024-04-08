@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -75,8 +74,8 @@ class AdminScreenController extends GetxController {
     Get.offAllNamed(RouteName.LOGIN_SCREEN);
     snackBar(
         title: "Log out Successfully",
-        message: "Admin log out successfully",
         contentType: ContentType.success,
+        message: "Admin log out successfully",
         context: Get.key.currentContext!);
   }
 

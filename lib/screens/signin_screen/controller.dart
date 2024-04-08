@@ -1,4 +1,3 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -42,22 +41,22 @@ class SignInController extends GetxController {
       if (e.code == 'week-password') {
         snackBar(
             title: 'Warning',
-            message: e.message.toString(),
             contentType: ContentType.warning,
+            message: e.message.toString(),
             context: Get.key.currentContext!);
       } else if (e.code == 'email-already-in-use') {
         snackBar(
             title: 'Warning',
-            message: e.message.toString(),
             contentType: ContentType.warning,
+            message: e.message.toString(),
             context: Get.key.currentContext!);
       }
       return null;
     } catch (e) {
       snackBar(
           title: 'Failed',
+          contentType: ContentType.failure,
           message: 'You failed to create account.Try again.',
-          contentType: ContentType.warning,
           context: Get.key.currentContext!);
       return null;
     }
@@ -94,9 +93,9 @@ class SignInController extends GetxController {
         //show snack bar
         snackBar(
             title: "Sign in Successfully",
+            contentType: ContentType.success,
             message:
                 "Your account created successfully.Thank you for join with us",
-            contentType: ContentType.success,
             context: Get.key.currentContext!);
 
         //clear input data

@@ -43,13 +43,17 @@ class HomeScreen extends GetView<HomeScreenController> {
             const SizedBox(
               height: 10,
             ),
+            //slider view
             GetBuilder<HomeScreenController>(builder: (controller) {
               return controller.sliderDataLoader
                   ? const Center(
-                      child:  CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        color: AppColors.backgroundColor,
+                        strokeWidth: 2.0,
+                      ),
                     )
                   : ProductSlider(
-                      carouselData: controller.carousel_data,
+                      carouselData: controller.carouselData,
                       autoPlay: true,
                     );
             }),
@@ -95,7 +99,6 @@ class HomeScreen extends GetView<HomeScreenController> {
                               builder: (controller) {
                             return ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                // physics: const NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount:
                                     controller.exclusiveOfferProduct.length,

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nectar/screens/search_with_category_screen/index.dart';
 import 'package:nectar/screens/widgets/product_cart.dart';
 import 'package:nectar/utils/color.dart';
+import 'package:nectar/utils/responsive.dart';
 
 class CategorySearchScreen extends GetView<CategorySearchScreenController> {
   const CategorySearchScreen({super.key});
@@ -35,17 +36,22 @@ class CategorySearchScreen extends GetView<CategorySearchScreenController> {
                       ? const Center(
                           child: Text("Therer are no products founds here"),
                         )
-                      : GridView.builder(
-                          itemCount: controller.productList.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  childAspectRatio: .7, crossAxisCount: 2),
-                          itemBuilder: (_, index) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ProductCart(
-                                  product: controller.productList[index],
-                                ),
-                              ));
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GridView.builder(
+                            itemCount: controller.productList.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisSpacing: 10,
+                                    childAspectRatio: .7,
+                                    crossAxisSpacing: 10,
+                                    crossAxisCount:
+                                        Responsive.isTablet(context) ? 4 : 2),
+                            itemBuilder: (_, index) => ProductCart(
+                              product: controller.productList[index],
+                            ),
+                          ),
+                        );
             },
           )),
         ),

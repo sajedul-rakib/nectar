@@ -1,4 +1,3 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
@@ -43,9 +42,9 @@ class AdminLogInScreenController extends GetxController {
         ? Get.toNamed(RouteName.ADMIN_LOG_IN_SCREEN)
         : snackBar(
             title: "Unvalid admin token",
+            contentType: ContentType.failure,
             message:
                 "You are not a admin / You are not verifed admin.Contact with nectar team for admin membership",
-            contentType: ContentType.warning,
             context: Get.key.currentContext!);
   }
 
@@ -60,17 +59,17 @@ class AdminLogInScreenController extends GetxController {
         //snackbar
         snackBar(
             title: "Not Found",
+            contentType: ContentType.failure,
             message:
                 "Not user found for that email.Enter your correct email address or sign in first",
-            contentType: ContentType.failure,
             context: Get.key.currentContext!);
         return null;
       } else if (e.code == 'wrong-password') {
         //snackbar
         snackBar(
             title: "Wrong Password",
-            message: "Wrong password provided for that user",
             contentType: ContentType.failure,
+            message: "Wrong password provided for that user",
             context: Get.key.currentContext!);
         return null;
       }
@@ -79,8 +78,8 @@ class AdminLogInScreenController extends GetxController {
       //snackbar
       snackBar(
           title: "Failed to log In",
-          message: "Failed to log in.Try again.",
           contentType: ContentType.failure,
+          message: "Failed to log in.Try again.",
           context: Get.key.currentContext!);
       return null;
     }
@@ -105,15 +104,15 @@ class AdminLogInScreenController extends GetxController {
         SaveData.saveUserRole(role: "admin");
         snackBar(
             title: "Log in Successful",
-            message: "Admin log in successfully",
             contentType: ContentType.success,
+            message: "Admin log in successfully",
             context: Get.key.currentContext!);
         Get.offAllNamed(RouteName.ADMIN_BOTTOM_NAV_BARSCREEN);
       } else {
         snackBar(
             title: "Invalid admin",
-            message: "You are not valid admin.Contact with nectar team",
             contentType: ContentType.failure,
+            message: "You are not valid admin.Contact with nectar team",
             context: Get.key.currentContext!);
       }
     }
