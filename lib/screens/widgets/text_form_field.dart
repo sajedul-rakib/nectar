@@ -36,6 +36,12 @@ class InputFormField extends StatelessWidget {
       autocorrect: autoCorrect,
       obscureText: isSecure,
       decoration: InputDecoration(
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.backgroundColor,
+            width: 2.0
+          )
+        ),
           suffixIcon: suffixIcon,
           label: Text(
             label,

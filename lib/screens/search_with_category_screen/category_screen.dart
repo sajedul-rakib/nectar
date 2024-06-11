@@ -23,6 +23,8 @@ class CategorySearchScreen extends GetView<CategorySearchScreenController> {
         body: RefreshIndicator(
           color: AppColors.backgroundColor,
           onRefresh: () {
+            controller.productList.clear();
+            controller.update();
             return controller.getProductDataByCategory(controller.title);
           },
           child: Center(child: GetBuilder<CategorySearchScreenController>(
@@ -34,7 +36,7 @@ class CategorySearchScreen extends GetView<CategorySearchScreenController> {
                     )
                   : controller.productList.isEmpty
                       ? const Center(
-                          child: Text("Therer are no products founds here"),
+                          child: Text("There are no products founds here"),
                         )
                       : Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -43,8 +45,8 @@ class CategorySearchScreen extends GetView<CategorySearchScreenController> {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     mainAxisSpacing: 10,
-                                    childAspectRatio: .7,
-                                    crossAxisSpacing: 10,
+                                    childAspectRatio: 1.2/1.8,
+                                    crossAxisSpacing: 8,
                                     crossAxisCount:
                                         Responsive.isTablet(context) ? 4 : 2),
                             itemBuilder: (_, index) => ProductCart(

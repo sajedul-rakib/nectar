@@ -136,7 +136,7 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                   width: 250,
                   height: 60,
                   child: AppButton(
-                    title: "Log in first",
+                    title: "Log In",
                     onPressed: () {
                       Get.toNamed(RouteName.LOGIN_SCREEN);
                     },

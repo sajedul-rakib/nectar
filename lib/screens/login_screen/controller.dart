@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/widgets/snack_bar.dart';
-import 'package:nectar/share/save_data.dart';
 
 class LoginScreenController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -70,8 +69,6 @@ class LoginScreenController extends GetxController {
     User? user = await signInwithEmailandPassword(email, password);
 
     if (user != null) {
-      SaveData.saveUserRole(role: "customer");
-      SaveData.setBoolFirstOpenThisApp(false);
       snackBar(
           contentType: ContentType.success,
           title: "Log in successfully",

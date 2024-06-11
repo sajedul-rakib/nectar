@@ -275,101 +275,115 @@ class CartScreen extends GetView<CartScreenController> {
             )
           : const Center(),
       body: controller.checkUserAreLogged
-          ? Column(
-              children: [
-                const Divider(),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          ClipRRect(
-                            child: Image.asset(
-                              'assets/images/apple.png',
-                              width: 100,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+          ? GetBuilder<CartScreenController>(builder: (controller) {
+              return ListView.builder(
+                  itemCount: controller.cartData.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        const Divider(),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  ClipRRect(
+                                    child: Image.network(
+                                      '${controller.cartData[index].productShowImage}',
+                                      width: 100,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        SizedBox(
-                                          width: 180,
-                                          child: AutoSizeText(
-                                            "Natural Red Apple Natural Red Apple  Natural Red Apple  ",
-                                            style: TextStyle(
-                                                color: AppColors.blackColor,
-                                                fontWeight: FontWeight.w700),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxFontSize: 18,
-                                            minFontSize: 14.0,
-                                          ),
-                                        ),
-                                        Text(
-                                          "4,Price",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.shadowTextColor,
-                                              fontSize: 16.0),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: 180,
+                                                  child: AutoSizeText(
+                                                    "${controller.cartData[index].productName}",
+                                                    style: const TextStyle(
+                                                        color: AppColors
+                                                            .blackColor,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxFontSize: 18,
+                                                    minFontSize: 14.0,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "${controller.cartData[index].totalOrderProduct},${controller.cartData[index].productUnit}",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: AppColors
+                                                          .shadowTextColor,
+                                                      fontSize: 16.0),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 150,
+                                              height: 50,
+                                              child: ProductStepper(
+                                                  counter: 1,
+                                                  plusMethod: () {},
+                                                  minusMethod: () {}),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      width: 150,
-                                      height: 50,
-                                      child: ProductStepper(
-                                          counter: 1,
-                                          plusMethod: () {},
-                                          minusMethod: () {}),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 80,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                child: Icon(CupertinoIcons.multiply),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "\$12",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18.0,
-                                    color: AppColors.blackColor),
+                               Padding(
+                                padding:const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  height: 80,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const InkWell(
+                                        child: Icon(CupertinoIcons.multiply),
+                                      ),
+                                      Text(
+                                        "\$${controller.cartData[index].productPrice}",
+                                        style:const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0,
+                                            color: AppColors.blackColor),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               )
                             ],
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                const Divider()
-              ],
-            )
+                        const Divider()
+                      ],
+                    );
+                  });
+            })
           : Center(
               child: SizedBox(
                 width: 250,

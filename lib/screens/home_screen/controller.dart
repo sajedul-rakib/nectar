@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '../../model/Product.dart';
+import '../../model/product.dart';
 
 class HomeScreenController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -18,13 +18,21 @@ class HomeScreenController extends GetxController {
   final List<String> _carouselData = [];
 
   int get currentBanner => _currentBanner;
+
   List<Product> get groceriesProduct => _groceriesProduct;
+
   List<Product> get exclusiveOfferProduct => _exclusiveOfferProduct;
+
   List<Product> get bestSellingProduct => _bestSellingProduct;
+
   List<String> get carouselData => _carouselData;
+
   bool get groceriesDataLoader => _groceriesDataLoader;
+
   bool get exclusiveOfferDataLoader => _exclusiveOfferDataLoader;
+
   bool get bestSellingDataLoader => _bestSellingDataLoader;
+
   bool get sliderDataLoader => _sliderDataLoader;
 
 //exclusive offer products

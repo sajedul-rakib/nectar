@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/home_screen/controller.dart';
 import 'package:nectar/screens/widgets/product_cart.dart';
 import 'package:nectar/screens/widgets/slider.dart';
@@ -172,12 +173,12 @@ class HomeScreen extends GetView<HomeScreenController> {
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                 Padding(
+                  padding:const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                     const Text(
                         "Groceries",
                         style: TextStyle(
                           fontSize: 22.0,
@@ -186,8 +187,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ),
                       ),
                       TextButton(
-                          onPressed: null,
-                          child: Text(
+                          onPressed: (){
+                            Get.toNamed(RouteName.CATEGORY_SEARCH_SCREEN,arguments: "Fresh Fruits & Vegetable");
+                          },
+                          child:const Text(
                             "See All",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,

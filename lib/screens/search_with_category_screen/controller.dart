@@ -1,16 +1,15 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:nectar/model/Product.dart';
+import 'package:nectar/model/product.dart';
 
 class CategorySearchScreenController extends GetxController {
-  final String _titleAndkeyWord = Get.arguments;
-  List<Product> _productList = [];
+  final String _titleAndKeyWord = Get.arguments;
+  final List<Product> _productList = [];
   bool _pageLoader = false;
 
-  String get title => _titleAndkeyWord;
+  String get title => _titleAndKeyWord;
   List<Product> get productList => _productList;
   bool get pageLoader => _pageLoader;
 
@@ -21,11 +20,10 @@ class CategorySearchScreenController extends GetxController {
     try {
       await store
           .collection("products")
-          .where("category", isEqualTo: category.split(" ").join(''))
+          .where("productCategory", isEqualTo: category.split(" ").join(''))
           .get()
           .then((value) {
         for (var product in value.docs) {
-          log(jsonEncode(product.data()));
           _productList.add(Product.fromJson(product.data()));
         }
         _pageLoader = false;

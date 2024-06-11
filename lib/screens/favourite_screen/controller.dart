@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:nectar/model/Product.dart';
+import 'package:nectar/model/product.dart';
 
 class FavouriteScreenController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -35,7 +35,6 @@ class FavouriteScreenController extends GetxController {
           .get()
           .then((favoriteProduct) {
         for (var product in favoriteProduct.docs) {
-          log(jsonEncode(product.data()));
           _favouriteProduct.add(Product.fromJson(product.data()));
         }
         _pageLoader.value = false;

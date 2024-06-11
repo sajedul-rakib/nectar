@@ -62,6 +62,8 @@ class MobileView extends GetView<LoginScreenController> {
                             fontSize: 12.0,
                             color: AppColors.shadowTextColor),
                       ),
+                      const SizedBox(height: 5,),
+
                       InputFormField(
                         label: 'Email',
                         autoCorrect: false,
@@ -75,6 +77,8 @@ class MobileView extends GetView<LoginScreenController> {
                           }
                         },
                       ),
+                      const SizedBox(height: 10,),
+
                       Obx(() => InputFormField(
                           label: 'Password',
                           controller: controller.passwordETController,
@@ -135,16 +139,7 @@ class MobileView extends GetView<LoginScreenController> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Center(
-                        child: SizedBox(
-                            width: 220,
-                            height: 40,
-                            child: AppButton(
-                                title: "Log in as Admin",
-                                onPressed: () {
-                                  Get.toNamed(RouteName.ADMIN_VERIFY_SCREEN);
-                                })),
-                      ),
+
                       const SizedBox(
                         height: 10,
                       ),
@@ -325,16 +320,7 @@ class DesktopAndTabView extends GetView<LoginScreenController> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Center(
-                          child: SizedBox(
-                              width: 220,
-                              height: 40,
-                              child: AppButton(
-                                  title: "Log in as Admin",
-                                  onPressed: () {
-                                    Get.toNamed(RouteName.ADMIN_VERIFY_SCREEN);
-                                  })),
-                        ),
+
                         const SizedBox(
                           height: 10,
                         ),

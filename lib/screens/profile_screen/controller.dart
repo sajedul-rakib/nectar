@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:nectar/model/User_data_mode.dart';
+import 'package:nectar/model/user_data_mode.dart';
 import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/profile_screen/tiledata.dart';
 import 'package:nectar/screens/widgets/snack_bar.dart';

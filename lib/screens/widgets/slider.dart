@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:nectar/utils/color.dart';
 
 class ProductSlider extends StatelessWidget {
   const ProductSlider({
@@ -18,12 +19,11 @@ class ProductSlider extends StatelessWidget {
             .map((imageUrl) => Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
                   decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                      BoxDecoration(borderRadius: BorderRadius.circular(15),color: AppColors.whiteColor),
                   child: Center(
                     child: Image.network(
                       imageUrl,
-                      fit: BoxFit.fitWidth,
-                      width: MediaQuery.of(context).size.width,
+                     fit: BoxFit.scaleDown,
                     ),
                   ),
                 ))

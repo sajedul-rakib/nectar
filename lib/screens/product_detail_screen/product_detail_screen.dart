@@ -2,11 +2,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/product_detail_screen/controller.dart';
 import 'package:nectar/screens/widgets/app_button.dart';
 import 'package:nectar/screens/widgets/rating_bar.dart';
 import 'package:nectar/screens/widgets/slider.dart';
-import 'package:nectar/screens/widgets/snack_bar.dart';
 import 'package:nectar/screens/widgets/stepper.dart';
 import 'package:nectar/utils/color.dart';
 
@@ -16,7 +16,10 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("${controller.product.productName}"),
+        centerTitle: true,
+      ),
       backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: Column(
@@ -33,7 +36,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                         bottomRight: Radius.circular(30))),
                 child: Center(
                   child: ProductSlider(
-                    carouselData: controller.product.productImage!,
+                    carouselData: controller.product.productImages!,
                   ),
                 ),
               ),
@@ -74,13 +77,18 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                               )
                             ],
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                CupertinoIcons.heart,
-                                color: AppColors.shadowTextColor,
-                                weight: 10,
-                              ))
+                          Obx(() => controller.addFavouriteLoader
+                              ? const CircularProgressIndicator()
+                              : IconButton(
+                                  onPressed: () {
+                                    controller.addFavouriteProducts(
+                                        controller.product);
+                                  },
+                                  icon: const Icon(
+                                    CupertinoIcons.heart,
+                                    color: AppColors.shadowTextColor,
+                                    weight: 10,
+                                  )))
                         ],
                       ),
                       const SizedBox(
@@ -95,12 +103,17 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                                     plusMethod: controller.plusMethod,
                                     minusMethod: controller.minusMethod,
                                   )),
-                          Text(
-                            "\$${controller.product.productPrice ?? "0"}",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 30.0,
-                                color: AppColors.blackColor),
+                          Column(
+                            children: [
+                              Text("\$${controller.product.productPrice}"),
+                              Text(
+                                "\$${controller.product.productPrice! - ((controller.product.discount! / 100) * controller.product.productPrice!)}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 30.0,
+                                    color: AppColors.blackColor),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -123,6 +136,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                       ),
                       const Divider(),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
                             height: 10,
@@ -161,7 +175,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "Nutritions",
+                            "Nutrition's",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackColor,
@@ -203,7 +217,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "Nutritions",
+                            "Rating",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.blackColor,
@@ -224,15 +238,17 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                               width: 250,
                               height: 60,
                               child: AppButton(
-                                title: "Add To Basket",
-                                onPressed: () {
-                                  snackBar(
-                                      title: "Buy Product",
-                                      contentType: ContentType.warning,
-                                      message:
-                                          "Buying a grocery product from nectar",
-                                      context: context);
-                                },
+                                title: controller.checkUserAreLogged
+                                    ? "Add To Basket"
+                                    : "Log In",
+                                onPressed: controller.checkUserAreLogged
+                                    ? () {
+                                        controller.addToCart(
+                                            product: controller.product);
+                                      }
+                                    : () {
+                                        Get.toNamed(RouteName.LOGIN_SCREEN);
+                                      },
                               ))),
                       const SizedBox(
                         height: 20,

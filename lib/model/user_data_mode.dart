@@ -1,4 +1,4 @@
-import 'package:nectar/model/Product.dart';
+import 'package:nectar/model/product.dart';
 
 class UserData {
   String? fullName;

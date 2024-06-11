@@ -63,6 +63,7 @@ class MobileView extends GetView<SignInController> {
                             fontSize: 12.0,
                             color: AppColors.shadowTextColor),
                       ),
+                      const SizedBox(height: 5,),
                       InputFormField(
                         label: 'Full Name',
                         autoCorrect: false,
@@ -76,6 +77,8 @@ class MobileView extends GetView<SignInController> {
                           }
                         },
                       ),
+                      const SizedBox(height: 10,),
+
                       InputFormField(
                         label: 'Email',
                         controller: controller.emailETController,
@@ -89,6 +92,8 @@ class MobileView extends GetView<SignInController> {
                           }
                         },
                       ),
+                      const SizedBox(height: 10,),
+
                       Obx(() => InputFormField(
                           label: 'Password',
                           controller: controller.passwordETController,
