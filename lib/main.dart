@@ -18,6 +18,7 @@ class KacaBazar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      scaffoldMessengerKey: GlobalKey<ScaffoldMessengerState>(),
       navigatorKey: Get.key,
       theme: ThemeData(
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(

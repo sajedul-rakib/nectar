@@ -1,8 +1,10 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:nectar/model/user_data_mode.dart';
+import 'package:nectar/model/user_data_model.dart';
 import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/profile_screen/tiledata.dart';
 import 'package:nectar/screens/widgets/snack_bar.dart';
@@ -12,10 +14,10 @@ class ProfileScreenController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _store = FirebaseFirestore.instance;
 
-  UserData? _userData;
+  UserModel? _userData;
 
   //get
-  UserData? get userData => _userData;
+  UserModel? get userData => _userData;
 
   List<TileData> tileData = [
     TileData(title: "Orders", icon: CupertinoIcons.bag),
@@ -27,34 +29,13 @@ class ProfileScreenController extends GetxController {
     TileData(title: "About", icon: CupertinoIcons.exclamationmark_circle),
   ];
 
-  Future<Map<String, dynamic>> getLoggedUserData() async {
-    return _store
+  Future<void> getLoggedUserData() async {
+    final loggedUserData = await _store
         .collection("user")
         .where("token", isEqualTo: _auth.currentUser!.uid)
         .limit(1)
-        .get()
-        .then((value) {
-      return value.docs.first.data();
-    });
-  }
-
-  Future<UserData?> getUserData() async {
-    Map<String, dynamic> loggedUserData = await getLoggedUserData();
-    User? loggedUser = _auth.currentUser;
-
-    if (loggedUser != null) {
-      _userData = UserData(
-          fullName: loggedUserData['fullName'] ?? loggedUser.displayName,
-          email: loggedUserData['email'] ?? loggedUser.email,
-          profilePic: loggedUserData['profilePic'],
-          phoneNumber: loggedUserData['phoneNumber'],
-          address: loggedUserData['address'],
-          token: loggedUser.uid);
-      update();
-      return _userData;
-    } else {
-      return null;
-    }
+        .get();
+    _userData = UserModel.fromJson(loggedUserData.docs.first.data());
   }
 
   Future<void> logOut() async {
@@ -70,7 +51,7 @@ class ProfileScreenController extends GetxController {
 
   @override
   void onInit() {
-    getUserData();
+    getLoggedUserData();
     super.onInit();
   }
 }

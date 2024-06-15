@@ -242,9 +242,17 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                                     ? "Add To Basket"
                                     : "Log In",
                                 onPressed: controller.checkUserAreLogged
-                                    ? () {
-                                        controller.addToCart(
-                                            product: controller.product);
+                                    ? () async {
+                                        bool result =
+                                            await controller.addToCart(
+                                                product: controller.product);
+
+                                        if (result) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  content: Text(
+                                                      "Add to the cart")));
+                                        }
                                       }
                                     : () {
                                         Get.toNamed(RouteName.LOGIN_SCREEN);

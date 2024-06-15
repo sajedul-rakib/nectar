@@ -87,7 +87,7 @@ class ProductDetailScreenController extends GetxController {
   }
 
   //add to cart function
-  Future<void> addToCart({required Product product}) async {
+  Future<bool> addToCart({required Product product}) async {
     try {
       final thisProductExistInCart = await _firestore
           .collection("cart")
@@ -100,6 +100,7 @@ class ProductDetailScreenController extends GetxController {
           "totalOrderProduct": productCount,
           ...product.toJson(),
         });
+        return true;
       } else {
         String productDoc = thisProductExistInCart.docs.first.id;
         int previousCartProduct =
@@ -109,6 +110,7 @@ class ProductDetailScreenController extends GetxController {
             .doc(productDoc)
             .update({"totalOrderProduct": previousCartProduct + productCount});
       }
+      return true;
     } catch (e) {
       log(e.toString());
       rethrow;

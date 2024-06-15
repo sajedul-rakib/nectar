@@ -22,127 +22,149 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        actions: [
+          GetBuilder<FavouriteScreenController>(builder: (controller) {
+            return controller.enabledMultiSelection
+                ? TextButton(
+                    onPressed: () => controller.deleteFavouriteData(),
+                    child: const Text(
+                      "Delete",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: AppColors.failureRed,
+                          fontWeight: FontWeight.w600),
+                    ))
+                : const SizedBox();
+          })
+        ],
       ),
       body: controller.checkUserAreLogged
           ? GetBuilder<FavouriteScreenController>(builder: (controller) {
-              return controller.favouriteProduct.isEmpty
-                  ? const Center(
-                      child: Text("You have no favourite product"),
-                    )
-                  : RefreshIndicator(
-                      onRefresh: () {
-                        controller.favouriteProduct.clear();
-                        controller.update();
-                        return controller.getFavouriteProduct();
-                      },
-                      child: Obx(() => controller.pageLoader
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.backgroundColor,
-                              ),
-                            )
-                          : ListView.builder(
-                              itemCount: controller.favouriteProduct.length,
-                              itemBuilder: (_, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    Get.toNamed(RouteName.PRODUCT_DETAIL_SCREEN,
-                                        arguments:
-                                            controller.favouriteProduct[index]);
-                                  },
-                                  child: Card(
-                                    margin: const EdgeInsets.all(8.0),
-                                    color: AppColors.shadowColor,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
+              return RefreshIndicator(
+                onRefresh: () {
+                  controller.favouriteProduct.clear();
+                  controller.update();
+                  return controller.getFavouriteProduct();
+                },
+                child: ListView.builder(
+                    itemCount: controller.favouriteProduct.length,
+                    itemBuilder: (_, index) {
+                      return InkWell(
+                        onTap: () {
+                          Get.toNamed(RouteName.PRODUCT_DETAIL_SCREEN,
+                              arguments: controller.favouriteProduct[index]);
+                        },
+                        onLongPress: () {
+                          controller.permitForEnableSelection = true;
+                          controller.selectFavouriteCart(
+                              controller.favouriteProduct[index]);
+                        },
+                        child: Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            Card(
+                              margin: const EdgeInsets.all(8.0),
+                              color: AppColors.shadowColor,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Card(
+                                        elevation: 0.0,
+                                        color: AppColors.whiteColor,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Image.network(
+                                            '${controller.favouriteProduct[index].productShowImage}',
+                                            width: 100,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
-                                            Card(
-                                              elevation: 0.0,
-                                              color: AppColors.whiteColor,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Image.network(
-                                                  '${controller.favouriteProduct[index].productShowImage}',
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
                                                   width: 100,
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 100,
-                                                        child: AutoSizeText(
-                                                          "${controller.favouriteProduct[index].productName}",
-                                                          style:
-                                                              const TextStyle(
-                                                            color: AppColors
-                                                                .blackColor,
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxFontSize: 18.0,
-                                                          minFontSize: 14.0,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "${controller.favouriteProduct[index].productUnit},Price",
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                            color: AppColors
-                                                                .shadowTextColor,
-                                                            fontSize: 16.0),
-                                                      ),
-                                                    ],
+                                                  child: AutoSizeText(
+                                                    "${controller.favouriteProduct[index].productName}",
+                                                    style: const TextStyle(
+                                                      color:
+                                                          AppColors.blackColor,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxFontSize: 18.0,
+                                                    minFontSize: 14.0,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                                Text(
+                                                  "${controller.favouriteProduct[index].productUnit},Price",
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: AppColors
+                                                          .shadowTextColor,
+                                                      fontSize: 16.0),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "\$${controller.favouriteProduct[index].productPrice}",
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18.0,
-                                                  color: AppColors.blackColor),
-                                            ),
-                                            const Icon(
-                                                CupertinoIcons.chevron_right)
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                );
-                              })),
-                    );
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "\$${controller.favouriteProduct[index].productPrice}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0,
+                                            color: AppColors.blackColor),
+                                      ),
+                                      const Icon(CupertinoIcons.chevron_right)
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Visibility(
+                                visible: controller.enabledMultiSelection,
+                                child: InkWell(
+                                  onTap: () => controller.selectFavouriteCart(
+                                      controller.favouriteProduct[index]),
+                                  child: Icon(
+                                    controller.selectedFavouriteCart.contains(
+                                            controller.favouriteProduct[index])
+                                        ? Icons.check_circle_outline
+                                        : Icons.circle_outlined,
+                                    size: 40,
+                                    color: AppColors.backgroundColor,
+                                  ),
+                                ))
+                          ],
+                        ),
+                      );
+                    }),
+              );
             })
           : Center(
               child: SizedBox(

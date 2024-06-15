@@ -1,9 +1,9 @@
 class CartDataModel {
   String? productShowImage;
   String? brandName;
-  double? rating;
+  num? rating;
   int? productStock;
-  double? discount;
+  num? discount;
   String? productUnit;
   String? userId;
   String? productName;
@@ -13,7 +13,7 @@ class CartDataModel {
   String? tag;
   String? id;
   String? productDescription;
-  double? productPrice;
+  num? productPrice;
   int? totalOrderProduct;
 
   CartDataModel(
