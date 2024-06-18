@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +24,7 @@ class CartScreen extends GetView<CartScreenController> {
         backgroundColor: Colors.transparent,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+<<<<<<< HEAD
       floatingActionButton: controller.checkUserAreLogged
           ? InkWell(
               onTap: () => paymentDialog(context, controller.totalPrice),
@@ -47,29 +45,58 @@ class CartScreen extends GetView<CartScreenController> {
                           fontSize: 18.0,
                           color: AppColors.whiteColor,
                           fontWeight: FontWeight.w700),
+=======
+      floatingActionButton:
+          GetBuilder<CartScreenController>(builder: (controller) {
+        return controller.checkUserAreLogged
+            ? controller.selectedCart.isNotEmpty
+                ? InkWell(
+                    onTap: () => Get.toNamed(RouteName.paymentScreen,
+                        arguments: controller.selectedCart),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 60,
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 20),
+                      decoration: BoxDecoration(
+                          color: AppColors.backgroundColor,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const SizedBox(),
+                          Text(
+                            "Proceed to Checkout (${controller.selectedCart.length})",
+                            style: const TextStyle(
+                                fontSize: 18.0,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Chip(
+                            label: GetBuilder<CartScreenController>(
+                                builder: (controller) {
+                              return Text(
+                                "\$${controller.totalPrice}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.whiteColor,
+                                    fontSize: 18.0),
+                              );
+                            }),
+                            elevation: 0,
+                            backgroundColor: AppColors.chipColor,
+                            side: BorderSide.none,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          )
+                        ],
+                      ),
+>>>>>>> development
                     ),
-                    Chip(
-                      label: GetBuilder<CartScreenController>(
-                          builder: (controller) {
-                        return Text(
-                          "\$${controller.totalPrice}",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.whiteColor,
-                              fontSize: 18.0),
-                        );
-                      }),
-                      elevation: 0,
-                      backgroundColor: AppColors.chipColor,
-                      side: BorderSide.none,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    )
-                  ],
-                ),
-              ),
-            )
-          : const Center(),
+                  )
+                : const Center()
+            : const Center();
+      }),
       body: controller.checkUserAreLogged
           ? GetBuilder<CartScreenController>(builder: (controller) {
               return RefreshIndicator(
@@ -299,6 +326,7 @@ class CartScreen extends GetView<CartScreenController> {
           );
         });
   }
+<<<<<<< HEAD
 
   Future<dynamic> paymentDialog(BuildContext context, num totalPrice) {
     return showModalBottomSheet(
@@ -509,4 +537,6 @@ class CartScreen extends GetView<CartScreenController> {
           );
         });
   }
+=======
+>>>>>>> development
 }
