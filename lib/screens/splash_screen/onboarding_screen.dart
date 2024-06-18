@@ -66,7 +66,7 @@ class OnbordingScreen extends StatelessWidget {
                 child: AppButton(
                   title: "Get Started",
                   onPressed: () {
-                    Get.toNamed(RouteName.LOGIN_SCREEN);
+                    Get.toNamed(RouteName.logInScreen);
                   },
                 ),
               )

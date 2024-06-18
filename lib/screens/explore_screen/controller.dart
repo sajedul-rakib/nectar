@@ -41,6 +41,6 @@ class ExploreScreenController extends GetxController {
   ];
 
   void gotoSearchScreen(String title) {
-    Get.toNamed(RouteName.CATEGORY_SEARCH_SCREEN, arguments: title);
+    Get.toNamed(RouteName.categorySearchScreen, arguments: title);
   }
 }

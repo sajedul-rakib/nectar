@@ -33,6 +33,7 @@ class MobileView extends GetView<LoginScreenController> {
 
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
             'assets/images/color_logo_part.png',
@@ -62,8 +63,9 @@ class MobileView extends GetView<LoginScreenController> {
                             fontSize: 12.0,
                             color: AppColors.shadowTextColor),
                       ),
-                      const SizedBox(height: 5,),
-
+                      const SizedBox(
+                        height: 5,
+                      ),
                       InputFormField(
                         label: 'Email',
                         autoCorrect: false,
@@ -77,8 +79,9 @@ class MobileView extends GetView<LoginScreenController> {
                           }
                         },
                       ),
-                      const SizedBox(height: 10,),
-
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Obx(() => InputFormField(
                           label: 'Password',
                           controller: controller.passwordETController,
@@ -139,7 +142,6 @@ class MobileView extends GetView<LoginScreenController> {
                       const SizedBox(
                         height: 20,
                       ),
-
                       const SizedBox(
                         height: 10,
                       ),
@@ -153,7 +155,7 @@ class MobileView extends GetView<LoginScreenController> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(RouteName.SIGNIN_SCREEN);
+                              Get.toNamed(RouteName.signInScreen);
                             },
                             child: const Text(
                               "Sign Up",
@@ -179,7 +181,7 @@ class MobileView extends GetView<LoginScreenController> {
             children: [
               TextButton(
                   onPressed: () {
-                    Get.offAllNamed(RouteName.BOTTONAVIGATION_SCREEN);
+                    Get.offAllNamed(RouteName.bottomNavigationScreen);
                   },
                   child: const Text(
                     "Later>>",
@@ -320,7 +322,6 @@ class DesktopAndTabView extends GetView<LoginScreenController> {
                         const SizedBox(
                           height: 20,
                         ),
-
                         const SizedBox(
                           height: 10,
                         ),
@@ -334,7 +335,7 @@ class DesktopAndTabView extends GetView<LoginScreenController> {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.toNamed(RouteName.SIGNIN_SCREEN);
+                                Get.toNamed(RouteName.signInScreen);
                               },
                               child: const Text(
                                 "Sign Up",
@@ -350,7 +351,7 @@ class DesktopAndTabView extends GetView<LoginScreenController> {
                           child: TextButton(
                               onPressed: () {
                                 Get.offAllNamed(
-                                    RouteName.BOTTONAVIGATION_SCREEN);
+                                    RouteName.bottomNavigationScreen);
                               },
                               child: const Text(
                                 "Log in letter>>",

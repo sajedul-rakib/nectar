@@ -234,7 +234,7 @@ class CartScreen extends GetView<CartScreenController> {
                 child: AppButton(
                   title: "Log in First",
                   onPressed: () {
-                    Get.toNamed(RouteName.LOGIN_SCREEN);
+                    Get.toNamed(RouteName.logInScreen);
                   },
                 ),
               ),

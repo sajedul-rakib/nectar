@@ -12,93 +12,98 @@ import 'package:nectar/screens/reset_password_screen/index.dart';
 import 'package:nectar/screens/search_with_category_screen/index.dart';
 import 'package:nectar/screens/signIn_screen/index.dart';
 import 'package:nectar/screens/splash_screen/index.dart';
+import 'package:nectar/screens/user_details_screen/index.dart';
 
 class RouteScreen {
   //initial route
-  static const String INITIAL = RouteName.INITIAL;
+  static const String initial = RouteName.initial;
 
   //pages
   static final List<GetPage> route = [
     //botton navigation bar screen
     GetPage(
-      name: RouteName.BOTTONAVIGATION_SCREEN,
+      name: RouteName.bottomNavigationScreen,
       page: () => const BottomNavBar(),
       binding: BottomNavigationBarBindings(),
     ),
 
     //splash screen
     GetPage(
-      name: RouteName.INITIAL,
+      name: RouteName.initial,
       page: () => const SplashScreen(),
       binding: SplashScreenBindings(),
     ),
 
     //boarding screen
     GetPage(
-      name: RouteName.ONBORDING_SCREEN,
+      name: RouteName.onBoardingScreen,
       page: () => const OnbordingScreen(),
     ),
 
     //log in screen
     GetPage(
-        name: RouteName.LOGIN_SCREEN,
+        name: RouteName.logInScreen,
         page: () => const LoginScreen(),
         binding: LoginScreenBindings()),
 
     //sign in screen
     GetPage(
-        name: RouteName.SIGNIN_SCREEN,
+        name: RouteName.signInScreen,
         page: () => const SigninScreen(),
         binding: SignInBindings()),
 
     //home  screen
     GetPage(
-        name: RouteName.HOME_SCREEN,
+        name: RouteName.homeScreen,
         page: () => const HomeScreen(),
         binding: HomeScreenBindings()),
 
     //product detail  screen
     GetPage(
-        name: RouteName.PRODUCT_DETAIL_SCREEN,
+        name: RouteName.productDetailScreen,
         page: () => const ProductDetailScreen(),
         binding: ProductDetailScreenBindings()),
 
     //explore detail  screen
     GetPage(
-        name: RouteName.EXPLORE_SCREEN,
+        name: RouteName.exploreScreen,
         page: () => const ExploreScreen(),
         binding: ExploreScreenBindings()),
 
     //cart detail  screen
     GetPage(
-        name: RouteName.CART_SCREEN,
+        name: RouteName.cartScreen,
         page: () => const CartScreen(),
         binding: CartScreenBindings()),
 
     //profile detail  screen
     GetPage(
-        name: RouteName.PROFILE_SCREEN,
+        name: RouteName.profileScreen,
         page: () => const ProfileScreen(),
         binding: ProfileScreenBindings()),
 
     //profile detail  screen
     GetPage(
-        name: RouteName.FAVOURITE_SCREEN,
+        name: RouteName.favouriteScreen,
         page: () => const FavouriteScreen(),
         binding: FavouriteScreenBindins()),
 
     //reset password screen
     GetPage(
-        name: RouteName.RESET_PASSWORD_SCREEN,
+        name: RouteName.resetPasswordScreen,
         page: () => const ResetPasswordScreen(),
         binding: ResetPasswordScreenBindings()),
 
-    //category search screen  screen
+    //category search  screen
     GetPage(
-        name: RouteName.CATEGORY_SEARCH_SCREEN,
+        name: RouteName.categorySearchScreen,
         page: () => const CategorySearchScreen(),
         binding: CategorySearchScreenBindings()),
 
-
+    //user detail  screen
+    GetPage(
+        name: RouteName.userDetailScreen,
+        page: () => const UserDetailScreen(),
+        binding: UserDetailsScreenBindings()),
   ];
 }

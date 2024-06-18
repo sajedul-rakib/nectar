@@ -104,7 +104,7 @@ class SignInController extends GetxController {
         _passwordETController.clear();
 
         //go to log in screen
-        Get.offAllNamed(RouteName.LOGIN_SCREEN);
+        Get.offAllNamed(RouteName.logInScreen);
       }
     }
   }

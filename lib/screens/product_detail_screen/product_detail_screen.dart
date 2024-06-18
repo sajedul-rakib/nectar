@@ -255,7 +255,7 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                                         }
                                       }
                                     : () {
-                                        Get.toNamed(RouteName.LOGIN_SCREEN);
+                                        Get.toNamed(RouteName.logInScreen);
                                       },
                               ))),
                       const SizedBox(

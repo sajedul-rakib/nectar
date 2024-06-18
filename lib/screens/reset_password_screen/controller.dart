@@ -19,7 +19,7 @@ class ResetPasswordScreenController extends GetxController {
         contentType: ContentType.success,
         message: "We send a mail at $email.Check the email for reset passwrod",
         context: Get.key.currentContext!);
-    Get.offAllNamed(RouteName.LOGIN_SCREEN);
+    Get.offAllNamed(RouteName.logInScreen);
   }
 
   @override

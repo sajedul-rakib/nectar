@@ -4,5 +4,7 @@ import 'package:flutter/material.dart';
 class TileData {
   String title;
   IconData icon;
-  TileData({required this.title, required this.icon});
+  Function() onPressed;
+
+  TileData({required this.title, required this.icon, required this.onPressed});
 }

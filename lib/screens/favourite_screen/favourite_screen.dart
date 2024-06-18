@@ -52,7 +52,7 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
                     itemBuilder: (_, index) {
                       return InkWell(
                         onTap: () {
-                          Get.toNamed(RouteName.PRODUCT_DETAIL_SCREEN,
+                          Get.toNamed(RouteName.productDetailScreen,
                               arguments: controller.favouriteProduct[index]);
                         },
                         onLongPress: () {
@@ -173,7 +173,7 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
                 child: AppButton(
                   title: "Log in first",
                   onPressed: () {
-                    Get.toNamed(RouteName.LOGIN_SCREEN);
+                    Get.toNamed(RouteName.logInScreen);
                   },
                 ),
               ),

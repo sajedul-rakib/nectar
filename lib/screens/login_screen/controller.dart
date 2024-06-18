@@ -76,12 +76,12 @@ class LoginScreenController extends GetxController {
           context: Get.key.currentContext!);
       _emailETController.clear();
       _passwordETController.clear();
-      Get.offAllNamed(RouteName.BOTTONAVIGATION_SCREEN);
+      Get.offAllNamed(RouteName.bottomNavigationScreen);
     }
   }
 
   //go to reset password screen
   void gotoResetPasswordScreen() {
-    Get.toNamed(RouteName.RESET_PASSWORD_SCREEN);
+    Get.toNamed(RouteName.resetPasswordScreen);
   }
 }

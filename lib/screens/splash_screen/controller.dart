@@ -11,9 +11,9 @@ class SplashScreenController extends GetxController {
     User? authState = _firebaseAuth.currentUser;
     if (authState != null) {
       log(authState.uid);
-      Get.offAllNamed(RouteName.BOTTONAVIGATION_SCREEN);
+      Get.offAllNamed(RouteName.bottomNavigationScreen);
     } else {
-      Get.toNamed(RouteName.LOGIN_SCREEN);
+      Get.toNamed(RouteName.logInScreen);
     }
   }
 

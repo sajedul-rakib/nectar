@@ -188,7 +188,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                       ),
                       TextButton(
                           onPressed: (){
-                            Get.toNamed(RouteName.CATEGORY_SEARCH_SCREEN,arguments: "Fresh Fruits & Vegetable");
+                            Get.toNamed(RouteName.categorySearchScreen,arguments: "Fresh Fruits & Vegetable");
                           },
                           child:const Text(
                             "See All",

@@ -169,7 +169,7 @@ class MobileView extends GetView<SignInController> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.toNamed(RouteName.LOGIN_SCREEN);
+                              Get.toNamed(RouteName.logInScreen);
                             },
                             child: const Text(
                               "Log In",
@@ -340,7 +340,7 @@ class TabletAndDesktopView extends GetView<SignInController> {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.toNamed(RouteName.LOGIN_SCREEN);
+                                Get.toNamed(RouteName.logInScreen);
                               },
                               child: const Text(
                                 "Log In",

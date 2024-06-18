@@ -23,6 +23,14 @@ class UserModel {
     token = json['token'];
   }
 
+  static UserModel emptyUser = UserModel(
+      fullName: '',
+      email: '',
+      profilePic: '',
+      phoneNumber: '',
+      address: '',
+      token: '');
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['address'] = address;

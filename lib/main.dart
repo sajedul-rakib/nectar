@@ -41,7 +41,7 @@ class KacaBazar extends StatelessWidget {
                   shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)))))),
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteName.INITIAL,
+      initialRoute: RouteName.initial,
       getPages: RouteScreen.route,
     );
   }

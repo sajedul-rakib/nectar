@@ -1,4 +1,4 @@
-
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,21 +13,58 @@ import 'package:nectar/share/save_data.dart';
 class ProfileScreenController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _store = FirebaseFirestore.instance;
+  bool _userAreLoggedIn = false;
 
-  UserModel? _userData;
+  UserModel _userData = UserModel.emptyUser;
 
   //get
-  UserModel? get userData => _userData;
+  UserModel get userData => _userData;
+  bool get userAreLoggedIn => _userAreLoggedIn;
 
   List<TileData> tileData = [
-    TileData(title: "Orders", icon: CupertinoIcons.bag),
-    TileData(title: "My Details", icon: CupertinoIcons.doc_text_search),
-    TileData(title: "Delivery Address", icon: CupertinoIcons.map),
-    TileData(title: "Payment Method", icon: CupertinoIcons.creditcard),
-    TileData(title: "Notifications", icon: CupertinoIcons.bell),
-    TileData(title: "Help", icon: CupertinoIcons.question_circle),
-    TileData(title: "About", icon: CupertinoIcons.exclamationmark_circle),
+    TileData(
+      title: "My Orders",
+      icon: CupertinoIcons.bag,
+      onPressed: () {
+        log("my order");
+      },
+    ),
+    TileData(
+      title: "My Details",
+      icon: CupertinoIcons.doc_text_search,
+      onPressed: () => Get.toNamed(RouteName.userDetailScreen),
+    ),
+    TileData(
+      title: "Notifications",
+      icon: CupertinoIcons.bell,
+      onPressed: () {
+        log("my notification");
+      },
+    ),
+    TileData(
+      title: "Help",
+      icon: CupertinoIcons.question_circle,
+      onPressed: () {
+        log("help");
+      },
+    ),
+    TileData(
+      title: "About",
+      icon: CupertinoIcons.exclamationmark_circle,
+      onPressed: () {
+        log("about");
+      },
+    ),
   ];
+
+  void _checkUserAreLogged() {
+    User? loggedUser = _auth.currentUser;
+
+    if (loggedUser != null) {
+      _userAreLoggedIn = true;
+      update();
+    }
+  }
 
   Future<void> getLoggedUserData() async {
     final loggedUserData = await _store
@@ -36,6 +73,7 @@ class ProfileScreenController extends GetxController {
         .limit(1)
         .get();
     _userData = UserModel.fromJson(loggedUserData.docs.first.data());
+    update();
   }
 
   Future<void> logOut() async {
@@ -46,12 +84,13 @@ class ProfileScreenController extends GetxController {
         contentType: ContentType.success,
         message: "Log out successfully",
         context: Get.key.currentContext!);
-    Get.offAllNamed(RouteName.LOGIN_SCREEN);
+    Get.offAllNamed(RouteName.logInScreen);
   }
 
   @override
   void onInit() {
-    getLoggedUserData();
+    _checkUserAreLogged();
+    _userAreLoggedIn ? getLoggedUserData() : null;
     super.onInit();
   }
 }

@@ -105,7 +105,7 @@ class FavouriteScreenController extends GetxController {
   @override
   void onInit() {
     userAreLoggedIn();
-    getFavouriteProduct();
+    checkUserAreLogged?getFavouriteProduct():null;
     super.onInit();
   }
 }

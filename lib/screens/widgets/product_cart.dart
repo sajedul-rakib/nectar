@@ -19,7 +19,7 @@ class ProductCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(RouteName.PRODUCT_DETAIL_SCREEN, arguments: product);
+        Get.toNamed(RouteName.productDetailScreen, arguments: product);
       },
       child: Container(
         height: 300,
@@ -95,9 +95,9 @@ class ProductCart extends StatelessWidget {
                               Text(
                                 "\$${product.productPrice! - ((product.discount! / 100) * product.productPrice!)}",
                                 style: const TextStyle(
-                                    fontSize: 22.0,
+                                    fontSize: 18.0,
                                     color: AppColors.blackColor,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.w600),
                               ),
                               product.discount != 0.0
                                   ? Text("${product.discount}% off")
