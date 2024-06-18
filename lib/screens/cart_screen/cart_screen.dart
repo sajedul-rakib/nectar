@@ -16,7 +16,6 @@ class CartScreen extends GetView<CartScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    num totalPrice = 0;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -30,7 +29,7 @@ class CartScreen extends GetView<CartScreenController> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: controller.checkUserAreLogged
           ? InkWell(
-              onTap:  () => paymentDialog(context, controller.totalPrice),
+              onTap: () => paymentDialog(context, controller.totalPrice),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 60,
@@ -490,15 +489,16 @@ class CartScreen extends GetView<CartScreenController> {
                   const SizedBox(
                     height: 10,
                   ),
-                   Center(
+                  Center(
                     child: SizedBox(
                         width: 280,
                         height: 50,
-                        child: AppButton(title: "Place Order",onPressed: (){
-                          log(jsonEncode({
-
-                          }));
-                        },)),
+                        child: AppButton(
+                          title: "Place Order",
+                          onPressed: () {
+                            log(jsonEncode({}));
+                          },
+                        )),
                   ),
                   const SizedBox(
                     height: 20,
