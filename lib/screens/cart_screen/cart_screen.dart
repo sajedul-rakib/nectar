@@ -16,7 +16,6 @@ class CartScreen extends GetView<CartScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    num totalPrice = 0;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -28,49 +27,55 @@ class CartScreen extends GetView<CartScreenController> {
         backgroundColor: Colors.transparent,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: controller.checkUserAreLogged
-          ? InkWell(
-              onTap:  () => paymentDialog(context, controller.totalPrice),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 60,
-                margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                decoration: BoxDecoration(
-                    color: AppColors.backgroundColor,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const SizedBox(),
-                    const Text(
-                      "Go to Checkout",
-                      style: TextStyle(
-                          fontSize: 18.0,
-                          color: AppColors.whiteColor,
-                          fontWeight: FontWeight.w700),
+      floatingActionButton:
+          GetBuilder<CartScreenController>(builder: (controller) {
+        return controller.checkUserAreLogged
+            ? controller.selectedCart.isNotEmpty
+                ? InkWell(
+                    onTap: () => paymentDialog(context, controller.totalPrice),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 60,
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 20),
+                      decoration: BoxDecoration(
+                          color: AppColors.backgroundColor,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const SizedBox(),
+                          const Text(
+                            "Go to Checkout",
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                color: AppColors.whiteColor,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Chip(
+                            label: GetBuilder<CartScreenController>(
+                                builder: (controller) {
+                              return Text(
+                                "\$${controller.totalPrice}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.whiteColor,
+                                    fontSize: 18.0),
+                              );
+                            }),
+                            elevation: 0,
+                            backgroundColor: AppColors.chipColor,
+                            side: BorderSide.none,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          )
+                        ],
+                      ),
                     ),
-                    Chip(
-                      label: GetBuilder<CartScreenController>(
-                          builder: (controller) {
-                        return Text(
-                          "\$${controller.totalPrice}",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.whiteColor,
-                              fontSize: 18.0),
-                        );
-                      }),
-                      elevation: 0,
-                      backgroundColor: AppColors.chipColor,
-                      side: BorderSide.none,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    )
-                  ],
-                ),
-              ),
-            )
-          : const Center(),
+                  )
+                : const Center()
+            : const Center();
+      }),
       body: controller.checkUserAreLogged
           ? GetBuilder<CartScreenController>(builder: (controller) {
               return RefreshIndicator(
@@ -490,15 +495,16 @@ class CartScreen extends GetView<CartScreenController> {
                   const SizedBox(
                     height: 10,
                   ),
-                   Center(
+                  Center(
                     child: SizedBox(
                         width: 280,
                         height: 50,
-                        child: AppButton(title: "Place Order",onPressed: (){
-                          log(jsonEncode({
-
-                          }));
-                        },)),
+                        child: AppButton(
+                          title: "Place Order",
+                          onPressed: () {
+                            log(jsonEncode({}));
+                          },
+                        )),
                   ),
                   const SizedBox(
                     height: 20,

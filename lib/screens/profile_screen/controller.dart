@@ -26,7 +26,7 @@ class ProfileScreenController extends GetxController {
       title: "My Orders",
       icon: CupertinoIcons.bag,
       onPressed: () {
-        log("my order");
+        Get.toNamed(RouteName.orderTrackingScreen);
       },
     ),
     TileData(
