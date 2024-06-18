@@ -13,27 +13,27 @@ class UserDetailScreenController extends GetxController {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-  num _uploadProgress = 0;
-  bool _uploadSuccess = false;
+
+  bool _editLoader = false;
 
   //text editing controller
-  TextEditingController _nameETController = TextEditingController();
-  TextEditingController _emailETController = TextEditingController();
-  TextEditingController _phoneNumberETController = TextEditingController();
-  TextEditingController _addressETController = TextEditingController();
+  final TextEditingController _nameETController = TextEditingController();
+  final TextEditingController _emailETController = TextEditingController();
+  final TextEditingController _phoneNumberETController =
+      TextEditingController();
+  final TextEditingController _addressETController = TextEditingController();
 
   UserModel _userModel = UserModel.emptyUser;
 
   //get method
   UserModel get userModel => _userModel;
 
+  bool get editLoader => _editLoader;
+
   TextEditingController get nameETController => _nameETController;
   TextEditingController get emailETController => _emailETController;
   TextEditingController get phoneNumberETController => _phoneNumberETController;
   TextEditingController get addressETController => _addressETController;
-
-  num get uploadProgress => _uploadProgress;
-  bool get uploadSuccess => _uploadSuccess;
 
   //get user data
   Future<void> getUserData() async {
@@ -48,7 +48,6 @@ class UserDetailScreenController extends GetxController {
       _emailETController.text = _userModel.email!;
       _phoneNumberETController.text = _userModel.phoneNumber!;
       _addressETController.text = _userModel.address!;
-
       update();
     } catch (e) {
       log(e.toString());
@@ -56,8 +55,8 @@ class UserDetailScreenController extends GetxController {
     }
   }
 
-  //upload profile pic
-  Future<bool> uploadProfilePic(XFile profilePic) async {
+  //upload profile pic to firestore
+  Future<String> _addProfilePicToFirebaseStorage(XFile profilePic) async {
     try {
       final rootDirectory = _firebaseStorage.ref();
       final fileExt = profilePic.name.split(".").last;
@@ -69,13 +68,61 @@ class UserDetailScreenController extends GetxController {
       final task = await uploadTask.whenComplete(() => null);
       String downloadUrl = await task.ref.getDownloadURL();
 
-      if (downloadUrl.isNotEmpty) {
-        return true;
-      } else {
-        return false;
+      return downloadUrl;
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+//add profile pic url to firestore
+  Future<void> uploadProfilePic(XFile profilePic) async {
+    try {
+      String profilePicUrl = await _addProfilePicToFirebaseStorage(profilePic);
+      if (profilePicUrl != '') {
+        final loggedUser = await _firebaseFirestore
+            .collection("user")
+            .where("token", isEqualTo: _firebaseAuth.currentUser!.uid)
+            .get();
+
+        final userId = loggedUser.docs.first.id;
+
+        _firebaseFirestore
+            .collection("user")
+            .doc(userId)
+            .update({..._userModel.toJson(), "profilePic": profilePicUrl});
       }
     } catch (e) {
       log(e.toString());
+      rethrow;
+    }
+  }
+
+  //update the user data
+  Future<void> updateUserData() async {
+    _editLoader = true;
+    update();
+    try {
+      final loggedUser = await _firebaseFirestore
+          .collection("user")
+          .where("token", isEqualTo: _firebaseAuth.currentUser!.uid)
+          .get();
+
+      final userId = loggedUser.docs.first.id;
+
+      _firebaseFirestore.collection("user").doc(userId).update({
+        ..._userModel.toJson(),
+        "fullName": _nameETController.text.trim(),
+        "email": _emailETController.text.trim(),
+        "address": _addressETController.text.trim(),
+        "phoneNumber": _phoneNumberETController.text.trim()
+      });
+      _editLoader = false;
+      update();
+    } catch (e) {
+      log(e.toString());
+      _editLoader = false;
+      update();
       rethrow;
     }
   }

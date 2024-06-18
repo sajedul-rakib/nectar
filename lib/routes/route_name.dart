@@ -14,4 +14,5 @@ class RouteName {
   static const String categorySearchScreen = '/category-search-screen';
   static const String userDetailScreen = '/user-detail-screen';
   static const String orderTrackingScreen = '/order-tracking-screen';
+  static const String paymentScreen = '/payment-screen';
 }

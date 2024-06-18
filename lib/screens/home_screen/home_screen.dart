@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/home_screen/controller.dart';
+import 'package:nectar/screens/widgets/custom_progress_indicator.dart';
 import 'package:nectar/screens/widgets/product_cart.dart';
 import 'package:nectar/screens/widgets/slider.dart';
 import 'package:nectar/utils/color.dart';
@@ -47,12 +48,7 @@ class HomeScreen extends GetView<HomeScreenController> {
             //slider view
             GetBuilder<HomeScreenController>(builder: (controller) {
               return controller.sliderDataLoader
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.backgroundColor,
-                        strokeWidth: 2.0,
-                      ),
-                    )
+                  ? const CustomProgressIndicator()
                   : ProductSlider(
                       carouselData: controller.carouselData,
                       autoPlay: true,
@@ -87,12 +83,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 ),
                 GetBuilder<HomeScreenController>(builder: (controller) {
                   return controller.exclusiveOfferDataLoader
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.backgroundColor,
-                            strokeWidth: 2.0,
-                          ),
-                        )
+                      ? const CustomProgressIndicator()
                       : SizedBox(
                           height: 300,
                           width: double.infinity,
@@ -143,12 +134,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 ),
                 GetBuilder<HomeScreenController>(builder: (controller) {
                   return controller.bestSellingDataLoader
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.backgroundColor,
-                            strokeWidth: 2.0,
-                          ),
-                        )
+                      ? const CustomProgressIndicator()
                       : SizedBox(
                           height: 300,
                           width: double.infinity,
@@ -173,12 +159,12 @@ class HomeScreen extends GetView<HomeScreenController> {
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                 Padding(
-                  padding:const EdgeInsets.symmetric(horizontal: 8.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                     const Text(
+                      const Text(
                         "Groceries",
                         style: TextStyle(
                           fontSize: 22.0,
@@ -187,10 +173,11 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ),
                       ),
                       TextButton(
-                          onPressed: (){
-                            Get.toNamed(RouteName.categorySearchScreen,arguments: "Fresh Fruits & Vegetable");
+                          onPressed: () {
+                            Get.toNamed(RouteName.categorySearchScreen,
+                                arguments: "Fresh Fruits & Vegetable");
                           },
-                          child:const Text(
+                          child: const Text(
                             "See All",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -202,12 +189,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 ),
                 GetBuilder<HomeScreenController>(builder: (controller) {
                   return controller.groceriesDataLoader
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: AppColors.backgroundColor,
-                            strokeAlign: 2.0,
-                          ),
-                        )
+                      ? const CustomProgressIndicator()
                       : SizedBox(
                           height: 300,
                           width: double.infinity,

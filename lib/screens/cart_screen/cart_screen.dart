@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +29,8 @@ class CartScreen extends GetView<CartScreenController> {
         return controller.checkUserAreLogged
             ? controller.selectedCart.isNotEmpty
                 ? InkWell(
-                    onTap: () => paymentDialog(context, controller.totalPrice),
+                    onTap: () => Get.toNamed(RouteName.paymentScreen,
+                        arguments: controller.selectedCart),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 60,
@@ -45,9 +43,9 @@ class CartScreen extends GetView<CartScreenController> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           const SizedBox(),
-                          const Text(
-                            "Go to Checkout",
-                            style: TextStyle(
+                          Text(
+                            "Proceed to Checkout (${controller.selectedCart.length})",
+                            style: const TextStyle(
                                 fontSize: 18.0,
                                 color: AppColors.whiteColor,
                                 fontWeight: FontWeight.w700),
@@ -299,216 +297,6 @@ class CartScreen extends GetView<CartScreenController> {
                       ),
                     ],
                   )
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
-  Future<dynamic> paymentDialog(BuildContext context, num totalPrice) {
-    return showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 2,
-            decoration: const BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20))),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Checkout",
-                          style: TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.blackColor),
-                        ),
-                        InkWell(
-                            onTap: () {
-                              Get.back();
-                            },
-                            child: const Icon(
-                              CupertinoIcons.multiply,
-                              size: 32.0,
-                              color: AppColors.blackColor,
-                            )),
-                      ],
-                    ),
-                  ),
-                  const Divider(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Delivery",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18.0,
-                                  color: AppColors.shadowTextColor),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  "Select Method",
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.blackColor),
-                                ),
-                                Icon(CupertinoIcons.right_chevron)
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Divider(),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Payment",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18.0,
-                                  color: AppColors.shadowTextColor),
-                            ),
-                            Row(
-                              children: [
-                                Chip(
-                                  side: BorderSide.none,
-                                  backgroundColor: AppColors.chipColor,
-                                  label: Text(
-                                    "COD",
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w700,
-                                        color: AppColors.whiteColor),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Icon(CupertinoIcons.right_chevron)
-                              ],
-                            ),
-                          ],
-                        ),
-                        const Divider(),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Promo Code",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18.0,
-                                  color: AppColors.shadowTextColor),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  "Pick Discount",
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.blackColor),
-                                ),
-                                Icon(CupertinoIcons.right_chevron)
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Divider(),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "Total Cost",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18.0,
-                                  color: AppColors.shadowTextColor),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  "\$$totalPrice",
-                                  style: const TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.blackColor),
-                                ),
-                                const Icon(CupertinoIcons.right_chevron)
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Divider(),
-                      ],
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      "By placing an order you agree to our\nTerms And Conditions",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.0,
-                          color: AppColors.shadowTextColor),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: SizedBox(
-                        width: 280,
-                        height: 50,
-                        child: AppButton(
-                          title: "Place Order",
-                          onPressed: () {
-                            log(jsonEncode({}));
-                          },
-                        )),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                 ],
               ),
             ),
