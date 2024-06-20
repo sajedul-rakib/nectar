@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:nectar/utils/notifications/notificaton_service.dart';
 
 import '../../model/product.dart';
 
 class HomeScreenController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final NotificatonService _notificatonService = NotificatonService();
   int _currentBanner = 0;
   final List<Product> _groceriesProduct = [];
   final List<Product> _exclusiveOfferProduct = [];
@@ -129,6 +131,7 @@ class HomeScreenController extends GetxController {
 
   @override
   void onInit() {
+    _notificatonService.initialize();
     getSliderData();
     getExclusiveProduct();
     getBestSellingProduct();

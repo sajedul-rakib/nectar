@@ -83,10 +83,7 @@ class SignInController extends GetxController {
           "token": user.uid,
           "profilePic": user.photoURL ?? "",
           "phoneNumber": user.phoneNumber ?? "",
-          "cartList": [],
-          "favouriteList": [],
-          "order": [],
-          "role": "customer"
+          "fcmToken": ''
         };
         userStore.collection("user").add(userInformation);
 

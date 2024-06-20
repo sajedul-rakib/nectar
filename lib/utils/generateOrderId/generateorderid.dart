@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class GenerateOrderId {
-  String generateOrderId() {
+  static String generateOrderId() {
     final now = DateTime.now();
     final randomNumber = Random().nextInt(100000);
 
