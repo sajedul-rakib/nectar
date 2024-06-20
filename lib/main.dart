@@ -5,7 +5,6 @@ import 'package:nectar/firebase_options.dart';
 import 'package:nectar/routes/route.dart';
 import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/utils/color.dart';
-import 'package:nectar/utils/notifications/notificaton_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +17,6 @@ class KacaBazar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NotificatonService().initialize();
     return GetMaterialApp(
       scaffoldMessengerKey: GlobalKey<ScaffoldMessengerState>(),
       navigatorKey: Get.key,

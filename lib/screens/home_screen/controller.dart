@@ -131,7 +131,6 @@ class HomeScreenController extends GetxController {
 
   @override
   void onInit() {
-    _notificatonService.initialize();
     getSliderData();
     getExclusiveProduct();
     getBestSellingProduct();

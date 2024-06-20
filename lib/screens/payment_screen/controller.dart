@@ -58,28 +58,6 @@ class PaymentScreenController extends GetxController {
     }
   }
 
-  void requestPermission() async {
-    FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-
-    NotificationSettings settings = await firebaseMessaging.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
-        sound: true);
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      log("Permission Granted");
-    } else if (settings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      log("provational granted");
-    } else {
-      log("not granted");
-    }
-  }
-
   String reciepentToken = '';
 
   //send notification
@@ -110,7 +88,6 @@ class PaymentScreenController extends GetxController {
   void onInit() {
     getUserData();
     _totalPriceofAllProduct();
-    requestPermission();
     fcmToken();
     super.onInit();
   }

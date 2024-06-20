@@ -1,4 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<user-permission android:name="android.permission.INTERNET"/>
+<user-permission android:name="android.permission.ACCESS_INTERNET_STATE"/>
+<user-permission android:name="android.permission.ACCESS_INTERNET_STATE"/>
+<user-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+<user-permission android:name="android.permission.VIBRATE"/>
+<user-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+<user-permission android:name="android.permission.USE_EXACT_ALERM"/>
+<user-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:label="nectar"
         android:name="${applicationName}"
