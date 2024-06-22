@@ -9,6 +9,10 @@ class NotificatonService {
   static final FlutterLocalNotificationsPlugin
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+  static Future<String?> getFcmToken() async {
+    return await _firebaseMessaging.getToken();
+  }
+
 //take user permission for allow notification
   void takePermission() async {
     await _firebaseMessaging.requestPermission(
@@ -69,5 +73,19 @@ class NotificatonService {
         NotificationDetails(android: androidNotificationDetails);
     await _flutterLocalNotificationsPlugin
         .show(0, title, body, notificationDetails, payload: payload);
+  }
+
+  Future<void> initialize() async {
+    FirebaseMessaging.onMessage.listen(_messageHandler);
+    FirebaseMessaging.onBackgroundMessage(_messageHandler);
+    RemoteMessage? message = await _firebaseMessaging.getInitialMessage();
+    if (message != null) {
+      _messageHandler(message);
+    }
+  }
+
+  Future<void> _messageHandler(RemoteMessage remoteMessage) async {
+    log("client notificaton ${remoteMessage.notification?.title ?? ''}");
+    log(remoteMessage.notification?.body ?? '');
   }
 }

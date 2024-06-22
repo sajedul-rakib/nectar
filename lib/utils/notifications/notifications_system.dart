@@ -45,7 +45,7 @@ class NotificationsSystem {
       final notificationMessage = {
         "message": {
           "token": receipentToken,
-          "notification": {"body": message, "title": title}
+          "notification": {"body": message, "title": orderId}
         }
       };
 

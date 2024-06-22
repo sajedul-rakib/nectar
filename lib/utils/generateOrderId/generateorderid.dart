@@ -2,9 +2,12 @@ import 'dart:math';
 
 class GenerateOrderId {
   static String generateOrderId() {
-    final now = DateTime.now();
-    final randomNumber = Random().nextInt(100000);
-
-    return "${now.microsecondsSinceEpoch}${randomNumber.toString().padLeft(6, '0')}";
+    final Random random = Random();
+    const int maxDigit = 9;
+    String orderId = '';
+    for (int i = 0; i < 7; i++) {
+      orderId += random.nextInt(maxDigit + 1).toString();
+    }
+    return orderId;
   }
 }
