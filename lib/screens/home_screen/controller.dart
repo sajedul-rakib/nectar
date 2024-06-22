@@ -8,7 +8,6 @@ import '../../model/product.dart';
 
 class HomeScreenController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final NotificatonService _notificatonService = NotificatonService();
   int _currentBanner = 0;
   final List<Product> _groceriesProduct = [];
   final List<Product> _exclusiveOfferProduct = [];
