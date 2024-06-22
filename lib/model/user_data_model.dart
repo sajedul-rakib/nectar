@@ -5,6 +5,7 @@ class UserModel {
   String? fullName;
   String? email;
   String? token;
+  String? fcmToken;
 
   UserModel(
       {this.address,
@@ -12,13 +13,15 @@ class UserModel {
       this.profilePic,
       this.fullName,
       this.email,
-      this.token});
+      this.token,
+      this.fcmToken});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     address = json['address'];
     phoneNumber = json['phoneNumber'];
     profilePic = json['profilePic'];
     fullName = json['fullName'];
+    fcmToken = json['fcmToken'];
     email = json['email'];
     token = json['token'];
   }
@@ -29,7 +32,8 @@ class UserModel {
       profilePic: '',
       phoneNumber: '',
       address: '',
-      token: '');
+      token: '',
+      fcmToken: '');
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -37,6 +41,7 @@ class UserModel {
     data['phoneNumber'] = phoneNumber;
     data['profilePic'] = profilePic;
     data['fullName'] = fullName;
+    data['fcmToken'] = fcmToken;
     data['email'] = email;
     data['token'] = token;
     return data;

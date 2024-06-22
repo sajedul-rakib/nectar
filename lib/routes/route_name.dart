@@ -1,6 +1,6 @@
 class RouteName {
   static const String initial = '/'; // splash screen;
-  static const String bottomNavigationScreen = '/favourite-screen';
+  static const String bottomNavigationScreen = '/bottom-navigation-screen';
   static const String onBoardingScreen = '/onboarding-screen';
   static const String logInScreen = '/login-screen';
   static const String signInScreen = '/sign-in-screen';

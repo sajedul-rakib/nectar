@@ -13,7 +13,8 @@ class InputFormField extends StatelessWidget {
       this.autoCorrect = true,
       this.keyBoardType = TextInputType.text,
       this.readOnly = false,
-      this.maxLine = 1});
+      this.maxLine = 1,
+      this.borderColor = AppColors.backgroundColor});
 
   final String label;
   final TextEditingController? controller;
@@ -22,6 +23,8 @@ class InputFormField extends StatelessWidget {
   final bool autoCorrect;
   final bool readOnly;
   final int maxLine;
+
+  final Color borderColor;
   final TextInputType keyBoardType;
   final Function(String? value)? validation;
 
@@ -42,12 +45,14 @@ class InputFormField extends StatelessWidget {
       maxLines: maxLine,
       obscureText: isSecure,
       decoration: InputDecoration(
-          enabledBorder: const OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: AppColors.backgroundColor, width: 2.0)),
-          focusedBorder: const OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: AppColors.backgroundColor, width: 2.0)),
+          focusedErrorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.failureRed, width: 2.0)),
+          errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.failureRed, width: 2.0)),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: borderColor, width: 2.0)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: borderColor, width: 2.0)),
           suffixIcon: suffixIcon,
           label: Text(
             label,
