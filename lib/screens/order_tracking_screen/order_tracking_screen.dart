@@ -8,16 +8,16 @@ import 'package:nectar/screens/widgets/text_form_field.dart';
 import 'package:nectar/utils/color.dart';
 
 class OrderTrackingScreen extends GetView<OrderTrackingScreenController> {
-  OrderTrackingScreen({super.key});
-
-  final List<GlobalObjectKey<FormState>> formKeyList =
-      List.generate(10, (index) => GlobalObjectKey<FormState>(index));
-
-  final List<TextEditingController> controllers =
-      List.generate(10, (index) => TextEditingController());
+  const OrderTrackingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<GlobalObjectKey<FormState>> formKeyList = List.generate(
+        controller.orderData.length,
+        (index) => GlobalObjectKey<FormState>(index));
+
+    final List<TextEditingController> controllers = List.generate(
+        controller.orderData.length, (index) => TextEditingController());
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -27,7 +27,7 @@ class OrderTrackingScreen extends GetView<OrderTrackingScreenController> {
         centerTitle: true,
       ),
       body: ListView.builder(
-          itemCount: 10,
+          itemCount: controller.orderData.length,
           itemBuilder: (context, index) {
             return Container(
               margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
