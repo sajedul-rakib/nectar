@@ -66,7 +66,8 @@ class CategoryCart extends StatelessWidget {
           Center(
             child: Image.asset(
               "${categoryDataModel.picAddress}",
-              width: 180,
+              width: 120,
+              height: 120,
               fit: BoxFit.contain,
             ),
           ),

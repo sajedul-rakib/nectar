@@ -84,15 +84,26 @@ class CartScreenController extends GetxController {
           .where("userId", isEqualTo: _auth.currentUser!.uid)
           .where("id", isEqualTo: cartData.id)
           .get();
-      _firestore.collection("cart").get();
-      String productDocument = getProductDocument.docs.first.id;
 
-      return _firestore
-          .collection("cart")
-          .doc(productDocument)
-          .delete()
-          .then((value) {
-        return true;
+      String deletedProductDocument = getProductDocument.docs.first.id;
+      String updateProductId = await _firestore
+          .collection("products")
+          .where("id", isEqualTo: cartData.id)
+          .get()
+          .then((doc) {
+        return doc.docs.first.id;
+      });
+
+      return _firestore.collection("products").doc(updateProductId).update({
+        'productStock': cartData.productStock! + cartData.totalOrderProduct!
+      }).then((_) {
+        return _firestore
+            .collection("cart")
+            .doc(deletedProductDocument)
+            .delete()
+            .then((value) {
+          return true;
+        });
       });
     } catch (e) {
       log(e.toString());

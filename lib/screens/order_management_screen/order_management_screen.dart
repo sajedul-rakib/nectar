@@ -4,7 +4,6 @@ import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/order_management_screen/index.dart';
 import 'package:nectar/screens/widgets/app_button.dart';
 import 'package:nectar/screens/widgets/custom_progress_indicator.dart';
-import 'package:nectar/screens/widgets/text_form_field.dart';
 import 'package:nectar/utils/color.dart';
 
 class OrderTrackingScreen extends GetView<OrderTrackingScreenController> {
@@ -40,21 +39,10 @@ class OrderTrackingScreen extends GetView<OrderTrackingScreenController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Order: #${controller.orderData[index].orderId}",
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600),
-                              ),
-                              GetBuilder<OrderTrackingScreenController>(
-                                  builder: (controller) {
-                                return controller.orderStatus != null
-                                    ? Text("${controller.orderStatus}")
-                                    : const Center();
-                              })
-                            ],
+                          Text(
+                            "Order: #${controller.orderData[index].orderId}",
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
                           ),
                           const Text(
                             "Items :",
@@ -79,13 +67,14 @@ class OrderTrackingScreen extends GetView<OrderTrackingScreenController> {
                                           "${controller.orderData[index].items![listIndex].productShowImage}",
                                           width: 100,
                                           height: 100,
-                                          fit: BoxFit.cover,
                                         ),
                                         SizedBox(
                                           width: 100,
                                           child: Text(
                                               "${controller.orderData[index].items![listIndex].productName}",
                                               style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
                                                   overflow:
                                                       TextOverflow.ellipsis)),
                                         ),
@@ -97,35 +86,17 @@ class OrderTrackingScreen extends GetView<OrderTrackingScreenController> {
                           const SizedBox(
                             height: 10,
                           ),
-                          InputFormField(
-                            isBackgroundFilled: true,
-                            keyBoardType: TextInputType.number,
-                            label: "Order id",
-                            borderColor: AppColors.warningYellow,
-                            validation: (value) {
-                              if (value!.isNotEmpty) {
-                                return "";
-                              } else {
-                                return 'Enter order your id without "#" this';
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Form(
-                            child: SizedBox(
-                                width: size.width,
-                                height: 50,
-                                child: AppButton(
-                                  title: "Manage order",
-                                  backgroundColor: AppColors.warningYellow,
-                                  onPressed: () {
-                                    Get.toNamed(RouteName.orderDetailsScreen,
-                                        arguments: controller.orderData[index]);
-                                  },
-                                )),
-                          )
+                          SizedBox(
+                              width: size.width,
+                              height: 50,
+                              child: AppButton(
+                                title: "Manage order",
+                                backgroundColor: AppColors.warningYellow,
+                                onPressed: () {
+                                  Get.toNamed(RouteName.orderDetailsScreen,
+                                      arguments: controller.orderData[index]);
+                                },
+                              ))
                         ],
                       ),
                     );

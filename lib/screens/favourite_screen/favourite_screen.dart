@@ -14,6 +14,7 @@ class FavouriteScreen extends GetView<FavouriteScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         elevation: 1,
         title: const Text(

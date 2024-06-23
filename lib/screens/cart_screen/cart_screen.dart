@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -95,6 +94,7 @@ class CartScreen extends GetView<CartScreenController> {
                               controller.selectCart(controller.cartData[index]);
                             },
                             child: Container(
+                              width: MediaQuery.of(context).size.width,
                               padding: const EdgeInsets.all(5.0),
                               margin: const EdgeInsets.only(
                                   left: 8.0, right: 8.0, bottom: 8.0),
@@ -102,21 +102,25 @@ class CartScreen extends GetView<CartScreenController> {
                                 color: AppColors.shadowColor,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: ClipRRect(
+                                      child: Image.network(
+                                        '${controller.cartData[index].productShowImage}',
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 8,
+                                    child: Row(
                                       children: [
-                                        ClipRRect(
-                                          child: Image.network(
-                                            '${controller.cartData[index].productShowImage}',
-                                            width: 100,
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(
@@ -135,19 +139,20 @@ class CartScreen extends GetView<CartScreenController> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      AutoSizeText(
-                                                        "${controller.cartData[index].productName}",
-                                                        style: const TextStyle(
-                                                            color: AppColors
-                                                                .blackColor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w700),
-                                                        maxLines: 2,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxFontSize: 18,
-                                                        minFontSize: 14.0,
+                                                      SizedBox(
+                                                        width: 200,
+                                                        child: Text(
+                                                          "${controller.cartData[index].productName}",
+                                                          style: const TextStyle(
+                                                              color: AppColors
+                                                                  .blackColor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700),
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
                                                       ),
                                                       Text(
                                                         "${controller.cartData[index].totalOrderProduct},${controller.cartData[index].productUnit}",
@@ -177,7 +182,10 @@ class CartScreen extends GetView<CartScreenController> {
                                         ),
                                       ],
                                     ),
-                                    Padding(
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: SizedBox(
                                         height: 80,
@@ -203,9 +211,9 @@ class CartScreen extends GetView<CartScreenController> {
                                           ],
                                         ),
                                       ),
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ),

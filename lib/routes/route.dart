@@ -124,7 +124,7 @@ class RouteScreen {
     //order details & tracking screen
     GetPage(
         name: RouteName.orderDetailsScreen,
-        page: () => const OrderDetailsScreen(),
+        page: () => OrderDetailsScreen(),
         binding: OrderDetailScreenBindings()),
   ];
 }

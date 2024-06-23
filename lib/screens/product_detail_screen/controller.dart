@@ -94,7 +94,18 @@ class ProductDetailScreenController extends GetxController {
           .where("userId", isEqualTo: _auth.currentUser!.uid)
           .where("id", isEqualTo: product.id)
           .get();
+      String productDoc = await _firestore
+          .collection("products")
+          .where("id", isEqualTo: product.id)
+          .get()
+          .then((prod) {
+        return prod.docs.first.id;
+      });
       if (thisProductExistInCart.docs.isEmpty) {
+        _firestore
+            .collection("products")
+            .doc(productDoc)
+            .update({"productStock": product.productStock! - productCount});
         _firestore.collection("cart").add({
           "userId": _auth.currentUser!.uid,
           "totalOrderProduct": productCount,
@@ -102,12 +113,16 @@ class ProductDetailScreenController extends GetxController {
         });
         return true;
       } else {
-        String productDoc = thisProductExistInCart.docs.first.id;
+        String cartDoc = thisProductExistInCart.docs.first.id;
+        _firestore
+            .collection("products")
+            .doc(productDoc)
+            .update({"productStock": product.productStock! - productCount});
         int previousCartProduct =
             await thisProductExistInCart.docs.first.get("totalOrderProduct");
         _firestore
             .collection("cart")
-            .doc(productDoc)
+            .doc(cartDoc)
             .update({"totalOrderProduct": previousCartProduct + productCount});
       }
       return true;
