@@ -76,7 +76,7 @@ class UserDetailScreenController extends GetxController {
   }
 
 //add profile pic url to firestore
-  Future<void> uploadProfilePic(XFile profilePic) async {
+  Future<bool> uploadProfilePic(XFile profilePic) async {
     try {
       String profilePicUrl = await _addProfilePicToFirebaseStorage(profilePic);
       if (profilePicUrl != '') {
@@ -87,11 +87,12 @@ class UserDetailScreenController extends GetxController {
 
         final userId = loggedUser.docs.first.id;
 
-        _firebaseFirestore
-            .collection("user")
-            .doc(userId)
-            .update({..._userModel.toJson(), "profilePic": profilePicUrl});
+        _firebaseFirestore.collection("user").doc(userId).update(
+            {..._userModel.toJson(), "profilePic": profilePicUrl}).then((_) {
+          getUserData();
+        });
       }
+      return true;
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -99,7 +100,7 @@ class UserDetailScreenController extends GetxController {
   }
 
   //update the user data
-  Future<void> updateUserData() async {
+  Future<bool> updateUserData() async {
     _editLoader = true;
     update();
     try {
@@ -116,9 +117,12 @@ class UserDetailScreenController extends GetxController {
         "email": _emailETController.text.trim(),
         "address": _addressETController.text.trim(),
         "phoneNumber": _phoneNumberETController.text.trim()
+      }).then((_) {
+        getUserData();
       });
       _editLoader = false;
       update();
+      return true;
     } catch (e) {
       log(e.toString());
       _editLoader = false;

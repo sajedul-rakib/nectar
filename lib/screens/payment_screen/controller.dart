@@ -45,6 +45,7 @@ class PaymentScreenController extends GetxController {
 
       _firebaseFirestore.collection("order").add({
         "orderId": orderId,
+        "orderToken": _userModel.token,
         "customer": {..._userModel.toJson()},
         "items": [...cartData.map((cart) => cart.toJson())],
         "deliveryAddress": _userModel.address,

@@ -7,6 +7,7 @@ import 'package:nectar/screens/product_detail_screen/controller.dart';
 import 'package:nectar/screens/widgets/app_button.dart';
 import 'package:nectar/screens/widgets/rating_bar.dart';
 import 'package:nectar/screens/widgets/slider.dart';
+import 'package:nectar/screens/widgets/snack_message.dart';
 import 'package:nectar/screens/widgets/stepper.dart';
 import 'package:nectar/utils/color.dart';
 
@@ -248,10 +249,9 @@ class ProductDetailScreen extends GetView<ProductDetailScreenController> {
                                                 product: controller.product);
 
                                         if (result) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                                  content: Text(
-                                                      "Add to the cart")));
+                                          SnackMessage.snackMessage(
+                                              message:
+                                                  "Add to cart successfully");
                                         }
                                       }
                                     : () {

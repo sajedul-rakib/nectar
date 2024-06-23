@@ -14,7 +14,8 @@ class InputFormField extends StatelessWidget {
       this.keyBoardType = TextInputType.text,
       this.readOnly = false,
       this.maxLine = 1,
-      this.borderColor = AppColors.backgroundColor});
+      this.borderColor = AppColors.backgroundColor,
+      this.isBackgroundFilled = false});
 
   final String label;
   final TextEditingController? controller;
@@ -23,7 +24,7 @@ class InputFormField extends StatelessWidget {
   final bool autoCorrect;
   final bool readOnly;
   final int maxLine;
-
+  final bool isBackgroundFilled;
   final Color borderColor;
   final TextInputType keyBoardType;
   final Function(String? value)? validation;
@@ -45,6 +46,8 @@ class InputFormField extends StatelessWidget {
       maxLines: maxLine,
       obscureText: isSecure,
       decoration: InputDecoration(
+          filled: isBackgroundFilled,
+          fillColor: AppColors.whiteColor,
           focusedErrorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: AppColors.failureRed, width: 2.0)),
           errorBorder: const OutlineInputBorder(

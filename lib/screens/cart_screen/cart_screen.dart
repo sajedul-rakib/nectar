@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/cart_screen/index.dart';
 import 'package:nectar/screens/widgets/app_button.dart';
+import 'package:nectar/screens/widgets/snack_message.dart';
 import 'package:nectar/screens/widgets/stepper.dart';
 import 'package:nectar/utils/color.dart';
 
@@ -287,11 +288,8 @@ class CartScreen extends GetView<CartScreenController> {
                             controller.getCartList();
                             controller.update();
                             Get.back();
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text("Cart deleted")));
-                            }
+                            SnackMessage.snackMessage(
+                                message: "Delete Successfully");
                           }
                         },
                       ),

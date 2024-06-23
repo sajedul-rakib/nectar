@@ -13,6 +13,7 @@ class RouteName {
   static const String resetPasswordScreen = '/reset-password-screen';
   static const String categorySearchScreen = '/category-search-screen';
   static const String userDetailScreen = '/user-detail-screen';
-  static const String orderTrackingScreen = '/order-tracking-screen';
+  static const String orderManagementScreen = '/order-management-screen';
+  static const String orderDetailsScreen = '/order-details-screen';
   static const String paymentScreen = '/payment-screen';
 }
