@@ -54,7 +54,7 @@ class CartScreen extends GetView<CartScreenController> {
                             label: GetBuilder<CartScreenController>(
                                 builder: (controller) {
                               return Text(
-                                "\$${controller.totalPrice}",
+                                "\$${controller.totalPrice.toStringAsFixed(2)}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.whiteColor,

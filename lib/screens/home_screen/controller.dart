@@ -12,12 +12,14 @@ class HomeScreenController extends GetxController {
   final List<Product> _groceriesProduct = [];
   final List<Product> _exclusiveOfferProduct = [];
   final List<Product> _bestSellingProduct = [];
+  List<Product> _searchProduct = [];
   bool _homeScreenLoader = false;
   final List<String> _carouselData = [];
 
   int get currentBanner => _currentBanner;
 
   List<Product> get groceriesProduct => _groceriesProduct;
+  List<Product> get searchProduct => _searchProduct;
 
   List<Product> get exclusiveOfferProduct => _exclusiveOfferProduct;
 
@@ -106,8 +108,25 @@ class HomeScreenController extends GetxController {
     update();
   }
 
+  //search product
+  Future<void> getSearchProduct({required String query}) async {
+    try {
+      final searchProduct = await _firestore
+          .collection("products")
+          .where("productName", isEqualTo: query)
+          .get();
+      for (var product in searchProduct.docs) {
+        _searchProduct.add(Product.fromJson(product.data()));
+      }
+      update();
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
   //call all method
-  void getAllProduct() async {
+  Future<void> getAllProduct() async {
     _homeScreenLoader = true;
     getSliderData().then((_) {
       getExclusiveProduct().then((_) {

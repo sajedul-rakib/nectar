@@ -29,21 +29,15 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(500),
-                                  child: (controller.userData.profilePic !=
-                                              null &&
+                                width: 60,
+                                height: 60,
+                                child: CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                  (controller.userData.profilePic != null &&
                                           controller.userData.profilePic != '')
-                                      ? Image.network(controller
-                                          .userData.profilePic
-                                          .toString())
-                                      : const Icon(
-                                          Icons.person,
-                                          size: 32.0,
-                                        ),
-                                ),
+                                      ? controller.userData.profilePic!
+                                      : "https://shorturl.at/zlb1Q",
+                                )),
                               ),
                               const SizedBox(
                                 width: 20,

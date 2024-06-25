@@ -15,11 +15,14 @@ class InputFormField extends StatelessWidget {
       this.readOnly = false,
       this.maxLine = 1,
       this.borderColor = AppColors.backgroundColor,
-      this.isBackgroundFilled = false});
+      this.isBackgroundFilled = false,
+      this.prefixIcon,
+      this.onChanged});
 
   final String label;
   final TextEditingController? controller;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final bool isSecure;
   final bool autoCorrect;
   final bool readOnly;
@@ -27,6 +30,7 @@ class InputFormField extends StatelessWidget {
   final bool isBackgroundFilled;
   final Color borderColor;
   final TextInputType keyBoardType;
+  final Function(String?)? onChanged;
   final Function(String? value)? validation;
 
   @override
@@ -45,6 +49,7 @@ class InputFormField extends StatelessWidget {
       autocorrect: autoCorrect,
       maxLines: maxLine,
       obscureText: isSecure,
+      onChanged: onChanged,
       decoration: InputDecoration(
           filled: isBackgroundFilled,
           fillColor: AppColors.whiteColor,
@@ -57,6 +62,7 @@ class InputFormField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: borderColor, width: 2.0)),
           suffixIcon: suffixIcon,
+          prefixIcon: prefixIcon,
           label: Text(
             label,
             style: const TextStyle(

@@ -43,11 +43,10 @@ class PaymentScreenController extends GetxController {
 
   Future<void> placeOrder() async {
     try {
-      String orderId = GenerateOrderId.generateOrderId();
-
       if (selectedPaymentMethod != "") {
         _firebaseFirestore.collection("order").add({
-          "orderId": orderId,
+          "id": GenerateOrderId.generateOrderId(10),
+          "orderId": GenerateOrderId.generateOrderId(6),
           "orderToken": _userModel.token,
           "customer": {..._userModel.toJson()},
           "items": [...cartData.map((cart) => cart.toJson())],
@@ -64,6 +63,7 @@ class PaymentScreenController extends GetxController {
           }
           Get.find<CartScreenController>().selectedCart.clear();
           Get.find<CartScreenController>().enabledMultiSelection = false;
+          SnackMessage.snackMessage(message: "New order Placed");
           Get.toNamed(RouteName.bottomNavigationScreen);
         });
       } else {

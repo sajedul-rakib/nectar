@@ -46,10 +46,8 @@ class UserDetailScreen extends GetView<UserDetailScreenController> {
                           child: (controller.userModel.profilePic != '' &&
                                   controller.userModel.profilePic != null)
                               ? CircleAvatar(
-                                  child: ClipOval(
-                                    child: Image.network(
-                                        controller.userModel.profilePic!),
-                                  ),
+                                  backgroundImage: NetworkImage(
+                                      controller.userModel.profilePic!),
                                 )
                               : const Icon(
                                   Icons.person,

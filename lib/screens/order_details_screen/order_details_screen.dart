@@ -327,7 +327,9 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                     height: 50,
                     child: AppButton(
                       title: "Cancel order",
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.cancelOrder();
+                      },
                       backgroundColor: AppColors.failureRed,
                     ),
                   ),

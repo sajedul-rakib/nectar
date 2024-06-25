@@ -2,6 +2,7 @@ import 'package:nectar/model/cart_data_model.dart';
 import 'package:nectar/model/user_data_model.dart';
 
 class OrderDataModel {
+  String? id;
   String? orderId;
   UserModel? customer;
   List<CartDataModel>? items;
@@ -13,7 +14,8 @@ class OrderDataModel {
   String? orderTime;
 
   OrderDataModel(
-      {this.orderId,
+      {this.id,
+      this.orderId,
       this.customer,
       this.items,
       this.deliveryAddress,
@@ -24,6 +26,7 @@ class OrderDataModel {
       this.orderTime});
 
   OrderDataModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     orderId = json['orderId'];
     customer = json['customer'] != null
         ? new UserModel.fromJson(json['customer'])
@@ -44,6 +47,7 @@ class OrderDataModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['orderId'] = orderId;
     if (customer != null) {
       data['customer'] = customer!.toJson();

@@ -39,17 +39,6 @@ class OrderTrackingScreenController extends GetxController {
     }
   }
 
-  //get order status
-  Future<void> getOrderStatus(
-      {required String orderId, required int index}) async {
-    if (_orderData[index].orderStatus != null) {
-      _orderStatus = _orderData[index].orderStatus;
-      if (orderId == _orderData[index].orderId) {
-        update();
-      }
-    }
-  }
-
   @override
   void onInit() {
     getOrderData();
