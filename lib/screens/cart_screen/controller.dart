@@ -113,7 +113,7 @@ class CartScreenController extends GetxController {
 
   @override
   void onInit() {
-    userAreLoggedIn();
+       userAreLoggedIn();
     _checkUserAreLogged.value ? getCartList() : null;
     super.onInit();
   }

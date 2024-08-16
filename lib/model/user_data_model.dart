@@ -9,12 +9,12 @@ class UserModel {
 
   UserModel(
       {this.address,
-      this.phoneNumber,
-      this.profilePic,
-      this.fullName,
-      this.email,
-      this.token,
-      this.fcmToken});
+        this.phoneNumber,
+        this.profilePic,
+        this.fullName,
+        this.email,
+        this.token,
+        this.fcmToken});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     address = json['address'];

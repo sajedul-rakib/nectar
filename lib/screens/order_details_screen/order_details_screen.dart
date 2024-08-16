@@ -139,26 +139,34 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                               const BoxDecoration(color: AppColors.shadowColor),
                           child: Row(
                             children: [
-                              (controller.orderDataModel.items![index]
-                                              .productShowImage !=
-                                          '' &&
-                                      controller.orderDataModel.items![index]
-                                              .productShowImage !=
-                                          null)
-                                  ? Image.network(
-                                      controller.orderDataModel.items![index]
-                                          .productShowImage!,
-                                      width: 70,
-                                      height: 70,
-                                    )
-                                  : const Icon(Icons.access_alarm_outlined),
+                              Expanded(
+                                flex: 2,
+                                child: (controller.orderDataModel.items![index]
+                                                .productShowImage !=
+                                            '' &&
+                                        controller.orderDataModel.items![index]
+                                                .productShowImage !=
+                                            null)
+                                    ? Image.network(
+                                        controller.orderDataModel.items![index]
+                                            .productShowImage!,
+                                        width: 70,
+                                        height: 70,
+                                      )
+                                    : const Icon(Icons.access_alarm_outlined),
+                              ),
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text(
-                                "${controller.orderDataModel.items![index].productName}",
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w500),
+                              Expanded(
+                                flex: 7,
+                                child: Text(
+                                  "${controller.orderDataModel.items![index].productName}",
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                      overflow: TextOverflow.ellipsis),
+                                ),
                               ),
                             ],
                           ),
@@ -185,20 +193,20 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               "Total Price :",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500),
                             ),
                             Text("\$20",
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500))
                           ],
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
@@ -211,23 +219,23 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                                     fontSize: 18, fontWeight: FontWeight.w500))
                           ],
                         ),
-                        const Divider(
+                        Divider(
                           height: 10,
                           thickness: 2,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           height: 10,
                         ),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               "Total Payment :",
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w500),
                             ),
                             Text("\$20",
-                                style: const TextStyle(
+                                style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500))
                           ],
                         ),
@@ -266,7 +274,7 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                                     child: Row(
                                       children: [
                                         const Text("Order status: ",
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w400)),
                                         Text(
@@ -297,7 +305,6 @@ class OrderDetailsScreen extends GetView<OrderDetailsScreenController> {
                                           if (_formKey.currentState
                                                   ?.validate() ??
                                               true) {
-                                            log(_orderIdETController.text);
                                             controller.getOrderStatus(
                                                 orderId: _orderIdETController
                                                     .text

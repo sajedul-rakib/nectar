@@ -10,7 +10,8 @@ import 'package:nectar/utils/notifications/notificaton_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  NotificatonService().takePermission();
+  NotificationService().initialize();
+  NotificationService.init();
   runApp(const KacaBazar());
 }
 

@@ -118,7 +118,7 @@ class CartScreen extends GetView<CartScreenController> {
                                     ),
                                   ),
                                   Expanded(
-                                    flex: 8,
+                                    flex: 7,
                                     child: Row(
                                       children: [
                                         Padding(
@@ -140,7 +140,7 @@ class CartScreen extends GetView<CartScreenController> {
                                                             .start,
                                                     children: [
                                                       SizedBox(
-                                                        width: 200,
+                                                        width: 150,
                                                         child: Text(
                                                           "${controller.cartData[index].productName}",
                                                           style: const TextStyle(

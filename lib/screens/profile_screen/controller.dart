@@ -17,6 +17,7 @@ class ProfileScreenController extends GetxController {
 
   //get
   UserModel get userData => _userData;
+
   bool get userAreLoggedIn => _userAreLoggedIn;
 
   void _checkUserAreLogged() {
@@ -45,14 +46,19 @@ class ProfileScreenController extends GetxController {
   }
 
   Future<void> logOut() async {
-    SaveData.clearData();
-    await _auth.signOut();
-    snackBar(
-        title: "Log Out",
-        contentType: ContentType.success,
-        message: "Log out successfully",
-        context: Get.key.currentContext!);
-    Get.offAllNamed(RouteName.logInScreen);
+    try {
+      SaveData.clearData();
+      await _auth.signOut();
+      snackBar(
+          title: "Log Out",
+          contentType: ContentType.success,
+          message: "Log out successfully",
+          context: Get.key.currentContext!);
+      Get.offAllNamed(RouteName.logInScreen);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 
   @override

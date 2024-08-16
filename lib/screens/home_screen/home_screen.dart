@@ -25,209 +25,193 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-          child: GetBuilder<HomeScreenController>(builder: (controller) {
-        return controller.homScreenLoader
-            ? const Center(child: CustomProgressIndicator())
-            : RefreshIndicator(
-                onRefresh: () => controller.getAllProduct(),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: InputFormField(
-                        label: "Search here",
-                        prefixIcon: const Icon(Icons.search),
-                        onChanged: (query) {
-                          controller.getSearchProduct(query: query!);
-                        },
+      body: SafeArea(
+        child: SingleChildScrollView(
+            child: GetBuilder<HomeScreenController>(builder: (controller) {
+          return controller.homScreenLoader
+              ? const Center(child: CustomProgressIndicator())
+              : RefreshIndicator(
+                  onRefresh: () => controller.getAllProduct(),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    // GetBuilder<HomeScreenController>(builder: (controller) {
-                    //   return controller.searchProduct.isNotEmpty
-                    //       ? Container(
-                    //           margin:
-                    //               const EdgeInsets.symmetric(horizontal: 10),
-                    //           width: MediaQuery.of(context).size.width,
-                    //           height: 400,
-                    //           decoration: const BoxDecoration(
-                    //               color: AppColors.shadowColor),
-                    //           child: ListView.builder(
-                    //               itemCount: controller.searchProduct.length,
-                    //               itemBuilder: (context, index) {
-                    //                 return ListTile(
-                    //                   trailing: Image.network(controller
-                    //                       .searchProduct[index]
-                    //                       .productShowImage!),
-                    //                   title: Text(controller
-                    //                       .searchProduct[index].productName!),
-                    //                 );
-                    //               }),
-                    //         )
-                    //       : const Center();
-                    // }),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    //slider view
-                    ProductSlider(
-                      carouselData: controller.carouselData,
-                      autoPlay: true,
-                    ),
-                    Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Exclusive Offer",
-                                style: TextStyle(
-                                  fontSize: 22.0,
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              TextButton(
-                                  onPressed: null,
-                                  child: Text(
-                                    "See All",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.0,
-                                        color: AppColors.backgroundColor),
-                                  )),
-                            ],
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: InputFormField(
+                          label: "Search here",
+                          prefixIcon: const Icon(Icons.search),
+                          onChanged: (query) {
+                            controller.getSearchProduct(query: query!);
+                          },
                         ),
-                        SizedBox(
-                          height: 300,
-                          width: double.infinity,
-                          child: GetBuilder<HomeScreenController>(
-                              builder: (controller) {
-                            return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemCount:
-                                    controller.exclusiveOfferProduct.length,
-                                itemBuilder: (context, index) {
-                                  return ProductCart(
-                                    product:
-                                        controller.exclusiveOfferProduct[index],
-                                  );
-                                });
-                          }),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Best Selling",
-                                style: TextStyle(
-                                  fontSize: 22.0,
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              TextButton(
-                                  onPressed: null,
-                                  child: Text(
-                                    "See All",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.0,
-                                        color: AppColors.backgroundColor),
-                                  )),
-                            ],
-                          ),
+                      ),
+        
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      //slider view
+                      SizedBox(
+                        width: MediaQuery.of(Get.key.currentContext!).size.width,
+                        child: ProductSlider(
+                          carouselData: controller.carouselData,
+                          autoPlay: true,
+                          imageWidth: MediaQuery.of(context).size.width,
                         ),
-                        SizedBox(
-                          height: 300,
-                          width: double.infinity,
-                          child: GetBuilder<HomeScreenController>(
-                              builder: (controller) {
-                            return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                // physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: controller.bestSellingProduct.length,
-                                itemBuilder: (context, index) {
-                                  return ProductCart(
-                                    product:
-                                        controller.bestSellingProduct[index],
-                                  );
-                                });
-                          }),
-                        )
-                      ],
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Groceries",
-                                style: TextStyle(
-                                  fontSize: 22.0,
-                                  color: AppColors.blackColor,
-                                  fontWeight: FontWeight.w600,
+                      ),
+                      Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Exclusive Offer",
+                                  style: TextStyle(
+                                    fontSize: 22.0,
+                                    color: AppColors.blackColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              TextButton(
-                                  onPressed: () {
-                                    Get.toNamed(RouteName.categorySearchScreen,
-                                        arguments: "Fresh Fruits & Vegetable");
-                                  },
-                                  child: const Text(
-                                    "See All",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.0,
-                                        color: AppColors.backgroundColor),
-                                  )),
-                            ],
+                                TextButton(
+                                    onPressed: null,
+                                    child: Text(
+                                      "See All",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.0,
+                                          color: AppColors.backgroundColor),
+                                    )),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 300,
-                          width: double.infinity,
-                          child: GetBuilder<HomeScreenController>(
-                              builder: (controller) {
-                            return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                // physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: controller.groceriesProduct.length,
-                                itemBuilder: (context, index) {
-                                  return ProductCart(
-                                    product: controller.groceriesProduct[index],
-                                  );
-                                });
-                          }),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    )
-                  ],
-                ),
-              );
-      })),
+                          SizedBox(
+                            height: 300,
+                            width: double.infinity,
+                            child: GetBuilder<HomeScreenController>(
+                                builder: (controller) {
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      controller.exclusiveOfferProduct.length,
+                                  itemBuilder: (context, index) {
+                                    return ProductCart(
+                                      product:
+                                          controller.exclusiveOfferProduct[index],
+                                    );
+                                  });
+                            }),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Best Selling",
+                                  style: TextStyle(
+                                    fontSize: 22.0,
+                                    color: AppColors.blackColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: null,
+                                    child: Text(
+                                      "See All",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.0,
+                                          color: AppColors.backgroundColor),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 300,
+                            width: double.infinity,
+                            child: GetBuilder<HomeScreenController>(
+                                builder: (controller) {
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  // physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: controller.bestSellingProduct.length,
+                                  itemBuilder: (context, index) {
+                                    return ProductCart(
+                                      product:
+                                          controller.bestSellingProduct[index],
+                                    );
+                                  });
+                            }),
+                          )
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Groceries",
+                                  style: TextStyle(
+                                    fontSize: 22.0,
+                                    color: AppColors.blackColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Get.toNamed(RouteName.categorySearchScreen,
+                                          arguments: "Fresh Fruits & Vegetable");
+                                    },
+                                    child: const Text(
+                                      "See All",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.0,
+                                          color: AppColors.backgroundColor),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 300,
+                            width: double.infinity,
+                            child: GetBuilder<HomeScreenController>(
+                                builder: (controller) {
+                              return ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  // physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: controller.groceriesProduct.length,
+                                  itemBuilder: (context, index) {
+                                    return ProductCart(
+                                      product: controller.groceriesProduct[index],
+                                    );
+                                  });
+                            }),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      )
+                    ],
+                  ),
+                );
+        })),
+      ),
     );
   }
 }

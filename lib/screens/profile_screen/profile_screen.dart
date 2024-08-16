@@ -7,6 +7,7 @@ import 'package:nectar/routes/route_name.dart';
 import 'package:nectar/screens/profile_screen/controller.dart';
 import 'package:nectar/screens/widgets/app_button.dart';
 import 'package:nectar/utils/color.dart';
+import 'package:nectar/utils/notifications/notifications_system.dart';
 
 class ProfileScreen extends GetView<ProfileScreenController> {
   const ProfileScreen({super.key});
@@ -182,7 +183,7 @@ class TileData {
       title: "Notifications",
       icon: CupertinoIcons.bell,
       onPressed: () {
-        log("my notification");
+        NotificationsSystem.sendPushNotification(receipentToken: "", title: "Notify", message: "hello world");
       },
     ),
     TileData(

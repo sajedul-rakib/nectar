@@ -74,7 +74,7 @@ class LoginScreenController extends GetxController {
     try {
       User? user = await signInwithEmailandPassword(email, password);
       if (user != null) {
-        final fcmToken = await NotificatonService.getFcmToken();
+        final fcmToken = await NotificationService.getFcmToken();
         if (fcmToken != null) {
           final user = await _firestore
               .collection("user")

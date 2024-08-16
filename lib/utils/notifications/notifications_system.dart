@@ -33,7 +33,7 @@ class NotificationsSystem {
       {required String receipentToken,
       required String title,
       required String message,
-      required String orderId}) async {
+      }) async {
     try {
       //server key
       String serverKey = await getAccessToken();
@@ -45,7 +45,7 @@ class NotificationsSystem {
       final notificationMessage = {
         "message": {
           "token": receipentToken,
-          "notification": {"body": message, "title": orderId}
+          "notification": {"body": message}
         }
       };
 

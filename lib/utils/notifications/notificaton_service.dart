@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 
-class NotificatonService {
+class NotificationService {
+  //firebase messaging
   static final FirebaseMessaging _firebaseMessaging =
       FirebaseMessaging.instance;
+
+  //initialize the local notification
   static final FlutterLocalNotificationsPlugin
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-  static Future<String?> getFcmToken() async {
-    return await _firebaseMessaging.getToken();
-  }
 
 //take user permission for allow notification
   void takePermission() async {
@@ -23,61 +23,64 @@ class NotificatonService {
         criticalAlert: false,
         provisional: false,
         sound: true);
-
-    //get device token
-    final token = await _firebaseMessaging.getToken();
-
-    log(token.toString());
   }
 
-  //initialize local notification
-  static Future<void> localNotificationInit() async {
-    const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-    final DarwinInitializationSettings darwinInitializationSettings =
-        DarwinInitializationSettings(
-      onDidReceiveLocalNotification: (id, title, body, payload) => null,
-    );
+  //local notification
 
-    const LinuxInitializationSettings linuxInitializationSettings =
-        LinuxInitializationSettings(defaultActionName: "Open notification");
+  //receive notification and response the notification
+  static void onDidReceiveNotificationResponse(
+      NotificationResponse notificationResponse) {
+    Get.toNamed(notificationResponse.payload!);
+  }
 
-    final InitializationSettings initializationSettings =
-        InitializationSettings(
-            android: androidInitializationSettings,
-            iOS: darwinInitializationSettings,
-            linux: linuxInitializationSettings);
-    _flutterLocalNotificationsPlugin
+  static Future<void> init() async {
+    //define the initialize for android settings
+    const AndroidInitializationSettings androidInitializeSettings =
+        AndroidInitializationSettings("@mipmap/ic_launcher");
+
+    //define tbe initialize for the ios settings
+    const DarwinInitializationSettings darwinInitializationSettings =
+        DarwinInitializationSettings();
+
+    //combine the initialize settings
+    InitializationSettings initializationSettings =
+        const InitializationSettings(
+            android: androidInitializeSettings,
+            iOS: darwinInitializationSettings);
+
+    await _flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveBackgroundNotificationResponse:
+            onDidReceiveNotificationResponse,
+        onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+
+    //request for permission for android notification
+    await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()!
-        .requestNotificationsPermission();
-
-    _flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveBackgroundNotificationResponse: (details) {},
-        onDidReceiveNotificationResponse: (details) {});
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
   }
 
-  // show a simple notification
-  static Future showSimpleNotification({
-    required String title,
-    required String body,
-    required String payload,
-  }) async {
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            channelDescription: 'your channel description',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker');
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
+  //show notification
+  static Future<void> showNotification(
+      {required String title, required String body, String? payload}) async {
+    NotificationDetails notificationDetails = const NotificationDetails(
+        android: AndroidNotificationDetails('channelId', 'channelName',
+            priority: Priority.high, importance: Importance.high),
+        iOS: DarwinNotificationDetails());
+
     await _flutterLocalNotificationsPlugin
         .show(0, title, body, notificationDetails, payload: payload);
   }
 
+  //get fcm token
+  static Future<String?> getFcmToken() {
+    return _firebaseMessaging.getToken();
+  }
+
+  //firebase push notification
   Future<void> initialize() async {
-    FirebaseMessaging.onMessage.listen(_messageHandler);
     FirebaseMessaging.onBackgroundMessage(_messageHandler);
+    FirebaseMessaging.onMessage.listen(_messageHandler);
     RemoteMessage? message = await _firebaseMessaging.getInitialMessage();
     if (message != null) {
       _messageHandler(message);
@@ -85,7 +88,9 @@ class NotificatonService {
   }
 
   Future<void> _messageHandler(RemoteMessage remoteMessage) async {
-    log("client notificaton ${remoteMessage.notification?.title ?? ''}");
-    log(remoteMessage.notification?.body ?? '');
+    return showNotification(
+        title: '${remoteMessage.notification!.title}',
+        body: '${remoteMessage.notification!.body}',
+        payload: remoteMessage.notification!.android!.clickAction!);
   }
 }

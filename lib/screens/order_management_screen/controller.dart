@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,6 +29,7 @@ class OrderTrackingScreenController extends GetxController {
 
       for (var orders in data.docs) {
         _orderData.add(OrderDataModel.fromJson(orders.data()));
+        log(jsonEncode(orders.data()));
       }
       _pageLoader = false;
       update();
