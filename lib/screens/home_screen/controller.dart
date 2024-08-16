@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:nectar/utils/notifications/notificaton_service.dart';
 
 import '../../model/product.dart';
 
