@@ -6,7 +6,8 @@ import 'package:nectar/screens/explore_screen/index.dart';
 import 'package:nectar/screens/favourite_screen/index.dart';
 import 'package:nectar/screens/home_screen/index.dart';
 import 'package:nectar/screens/login_screen/index.dart';
-import 'package:nectar/screens/order_tracking_screen/index.dart';
+import 'package:nectar/screens/order_details_screen/index.dart';
+import 'package:nectar/screens/order_management_screen/index.dart';
 import 'package:nectar/screens/payment_screen/index.dart';
 import 'package:nectar/screens/product_detail_screen//index.dart';
 import 'package:nectar/screens/profile_screen/index.dart';
@@ -110,14 +111,20 @@ class RouteScreen {
 
     //order tracking screen
     GetPage(
-        name: RouteName.orderTrackingScreen,
-        page: () => OrderTrackingScreen(),
+        name: RouteName.orderManagementScreen,
+        page: () => const OrderTrackingScreen(),
         binding: OrderTrackingScreenBindings()),
 
-    //order tracking screen
+    //order management screen
     GetPage(
         name: RouteName.paymentScreen,
         page: () => PaymentScreen(),
         binding: PaymentScreenBindings()),
+
+    //order details & tracking screen
+    GetPage(
+        name: RouteName.orderDetailsScreen,
+        page: () => const OrderDetailsScreen(),
+        binding: OrderDetailScreenBindings()),
   ];
 }

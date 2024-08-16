@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nectar/screens/user_details_screen/index.dart';
 import 'package:nectar/screens/widgets/app_button.dart';
 import 'package:nectar/screens/widgets/custom_progress_indicator.dart';
+import 'package:nectar/screens/widgets/snack_message.dart';
 import 'package:nectar/screens/widgets/text_form_field.dart';
 import 'package:nectar/utils/color.dart';
 
@@ -107,10 +108,13 @@ class UserDetailScreen extends GetView<UserDetailScreenController> {
                                 height: 60,
                                 child: AppButton(
                                   title: "Edit",
-                                  onPressed: () {
-                                    controller.updateUserData().then((_) {
-                                      controller.getUserData();
-                                    });
+                                  onPressed: () async {
+                                    bool result =
+                                        await controller.updateUserData();
+                                    if (result) {
+                                      SnackMessage.snackMessage(
+                                          message: "Update successfully");
+                                    }
                                   },
                                 )),
                             const SizedBox(
@@ -202,12 +206,15 @@ class UserDetailScreen extends GetView<UserDetailScreenController> {
                     AppButton(
                       title: "Upload",
                       backgroundColor: AppColors.successGreen,
-                      onPressed: () {
-                        controller.uploadProfilePic(profilePic).then((_) {
-                          controller.getUserData();
+                      onPressed: () async {
+                        bool result =
+                            await controller.uploadProfilePic(profilePic);
+                        if (result) {
                           Get.back();
                           Get.back();
-                        });
+                          SnackMessage.snackMessage(
+                              message: "Upload profile successfully");
+                        }
                       },
                     ),
                   ],

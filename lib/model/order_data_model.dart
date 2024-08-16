@@ -6,7 +6,7 @@ class OrderDataModel {
   UserModel? customer;
   List<CartDataModel>? items;
   String? deliveryAddress;
-  int? totalPrice;
+  num? totalPrice;
   String? paymentMethod;
   bool? paymentDone;
   String? orderStatus;

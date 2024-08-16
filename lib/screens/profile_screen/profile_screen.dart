@@ -176,7 +176,7 @@ class TileData {
       title: "My Orders",
       icon: CupertinoIcons.bag,
       onPressed: () {
-        Get.toNamed(RouteName.orderTrackingScreen);
+        Get.toNamed(RouteName.orderManagementScreen);
       },
     ),
     TileData(
